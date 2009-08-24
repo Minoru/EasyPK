@@ -26,7 +26,7 @@ then
 fi
 
 # checking for pv
-if command -v piv &>/dev/null
+if command -v pv &>/dev/null
 then
     pv_avaliable=true
 else
