@@ -1,0 +1,20 @@
+EasyPK CHANGELOG
+
+2.1:
++  Initial relise on GitHub.
++  Refactoring. I need to think little more before writing code.
++  Check for pv added (idea by Raging_Hog).
+   If utility isn't avaliable, standard "v" switches of archivers will be
+   enabled.
+
+2:
+
++  "-o" switch added to pk. It allows user to specify archive filename. Works
+   with tgz, tbz, tar, rar, zip and 7z archive types only. If no output file
+   specified, name of current directory (with appropriate extension) will be
+   used.
++  help message (and "--help" switch) added.
++  pv used for progres bar (idea by greatx).
++  First version. I just took Zend's code from here - http://welinux.ru/post/1177
+   - and started rewriting it.
+

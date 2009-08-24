@@ -1,0 +1,261 @@
+#!/bin/bash
+
+#
+#  PacK script
+#  Part of EasyPK distribution.
+#  Written by Minoru <eual tod jp ta gmail ta com> (substitute "tod" with "."
+#  and "ta" with "@")
+#
+
+help() {
+    echo "USAGE: `basename $0` --help | tar|tbz|tgz|bz2|gz|7z|zip|rar -o outfile file1 [file2 [file3 ...]]"
+    echo ""
+    echo "-o outfile  --  set name of archive to \"outfile\""
+    echo "--help      --  shows this help note"
+}
+
+parseargs () {
+    # parsing files and "-o" parameter
+    while [ -n "$1" ]
+    do
+        case "$1" in
+        "-o")
+            out="$2"
+            shift 2
+            ;;
+
+
+        "--help")
+            help
+            ;;
+
+
+        *)
+            if [ -z "$files" ]
+            then
+                files="\"$1\""
+            else
+                files="$files \"$1\""
+            fi
+    
+            if [ -z "$out2" ]
+            then
+                out2="$1"
+            fi
+    
+            shift
+            let "count++"
+            ;;
+        esac
+    done
+}
+
+# Initializing variables
+format="" # tar, tbz, tgz, bz and so on
+files="" # list of files to pack
+count=0 # amount of files given to script
+out="" # archive filename
+out2="" # archive filename; used by tar, tbz and so when only one file given
+
+# checking for pv
+if command -v pv &>/dev/null
+then
+    pv_avaliable=true
+else
+    pv_avaliable=false
+    echo "Warning: pv not found. Please install it for displaying nice progress bars, speed and estimated time while packing."
+fi
+
+# Some arguments which you want to pass to archivators
+bzip2args="--best"
+gzipargs="--best"
+zipargs="-9"
+lzmaargs="-m0=lzma"
+rarargs="-m5"
+
+
+# Getting format of archive
+format="$1" && shift
+
+
+# Check parameters
+if [ -z "$format" ]
+then
+    echo "Specify archive format please. See `basename $0` --help for details."
+    exit 1
+else
+    if [ "$format" == "--help" ]
+    then
+        help
+        exit
+    fi
+
+    if [ -z "$*" ]
+    then
+        echo "Specify files to pack please. See `basename $0` --help for details."
+        exit 1
+    fi
+fi
+
+# Real work starts here!
+case $format in
+    tar)
+        parseargs "$@"
+        
+        if [ -z "$out" ]
+        then
+            if [ "$count" -eq "1" ]
+            then
+                out="$out2.tar"
+            else
+                out="`basename $(pwd)`.tar"
+            fi
+        fi
+        
+        if [ $pv_avaliable == true ]
+        then
+            size=`eval du -b $files | tail -1 | grep -o '^[0-9]*'`
+            eval tar cf - $files | pv -s $size >"$out"
+        else
+            eval tar cvf "$out" $files
+        fi
+        ;;
+
+    
+    tbz)
+        parseargs "$@"
+
+        if [ -z "$out" ]
+        then
+            if [ "$count" -eq "1" ]
+            then
+                out="$out2.tar.bz2"
+            else
+                out="`basename $(pwd)`.tar.bz2"
+            fi
+        fi
+        
+        if [ $pv_avaliable == true ]
+        then
+            size=`eval du -b $files | tail -1 | grep -o '^[0-9]*'`
+            eval tar cf - $files | pv -s $size | bzip2 -c $bzip2args - >"$out"
+        else
+            eval tar cvf - $files | bzip2 -c $bzip2args - >"$out"
+        fi
+        ;;
+
+
+    tgz)
+        parseargs "$@"
+
+        if [ -z "$out" ]
+        then
+            if [ "$count" -eq "1" ]
+            then
+                out="$out2.tar.gz"
+            else
+                out="`basename $(pwd)`.tar.gz"
+            fi
+        fi
+        
+        if [ $pv_avaliable == true ]
+        then
+            size=`eval du -b $files | tail -1 | grep -o '^[0-9]*'`
+            eval tar cf - $files | pv -s $size | gzip -c $gzipargs - >"$out"
+        else
+            eval tar cvf - $files | gzip -c $gzipgargs - >"$out"
+        fi
+        ;;
+    
+    
+    bz2)
+        if [ $pv_avaliable == true ]
+        then
+            while [ -n "$1" ]
+            do
+                pv "$1" | bzip2 -c $bzip2args - >"$1.bz2"
+                shift
+            done
+        else
+            while [ -n "$1" ]
+            do
+                bzip2 -c $bzip2args $1 >"$1.bz2"
+                shift
+            done
+        fi
+        ;;
+    
+    
+    gz)
+        if [ $pv_avaliable == true ]
+        then
+            while [ -n "$1" ]
+            do
+                pv "$1" | gzip -c $gzipargs - >"$1.gz"
+                shift
+            done
+        else
+            while [ -n "$1" ]
+            do
+                gzip -c $gzipargs $1 >"$1.gz"
+                shift
+            done
+        fi
+        ;;
+    
+    
+    zip)
+        parseargs "$@"
+
+        if [ -z "$out" ]
+        then
+            if [ "$count" -eq "1" ]
+            then
+                out="$out2.zip"
+            else
+                out="`basename $(pwd).zip`"
+            fi
+        fi
+        
+        eval zip -qvR $zipargs "$out" $files
+        ;;
+
+
+    7z)
+        parseargs "$@"
+
+        if [ -z "$out" ]
+        then
+            if [ "$count" -eq "1" ]
+            then
+                out="$out2.zip"
+            else
+                out="`basename $(pwd).7z`"
+            fi
+        fi
+        
+        eval 7z a $lzmaargs "$out" $files
+        ;;
+
+    rar)
+        parseargs "$@"
+
+        if [ -z "$out" ]
+        then
+            if [ "$count" -eq "1" ]
+            then
+                out="$out2.zip"
+            else
+                out="`basename $(pwd).rar`"
+            fi
+        fi
+        
+        eval rar a -r $lzmaargs -- "$out" $files
+        ;;
+
+
+    *)
+        echo "'$format' isn't supported archive format. See `basename $0` --help for details."
+        ;;
+esac
+

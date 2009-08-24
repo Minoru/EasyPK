@@ -1,0 +1,121 @@
+#!/bin/bash
+
+#
+#  UNPacK script
+#  Part of EasyPK distribution
+#  Written by Minoru <eual tod jp ta gmail tod com> (substitute "tod" with "."
+#  and "ta" with "@")
+#
+
+help() {
+    echo "USAGE: `basename $0` --help | file1 [file2 [file3 ...]]"
+    echo "Supported archive formats is: tar, tar.bz2, tar.gz, bz2, gz, 7z, zip, rar."
+}
+
+# Check parameters
+if [ "$1" == "--help" ]
+then
+    help
+    exit
+fi
+
+if [ -z "$*" ]
+then
+    echo "Specify files to unpack please. See `basename $0` --help for details."
+    exit 1
+fi
+
+# checking for pv
+if command -v piv &>/dev/null
+then
+    pv_avaliable=true
+else
+    pv_avaliable=false
+    echo "Warning: pv not found. Please install it for displaying nice progress bars, speed and estimated time while packing."
+fi
+
+while [ -n "$1" ]
+do
+    case $1 in
+        *.tar)
+            if [ $pv_avaliable == true ]
+            then
+                pv "$1" | tar xf -
+            else
+                tar xvf "$1"
+            fi
+            shift
+            ;;
+
+
+        *.tbz|*.tbz2|*.tar.bz2)
+            if [ $pv_avaliable == true ]
+            then
+                pv "$1" | bunzip2 -c | tar xf -
+            else
+                tar xjvf "$1"
+            fi
+            shift
+            ;;
+
+    
+        *.tgz|*.tar.gz)
+            if [ $pv_avaliable == true ]
+            then
+                pv "$1" | gunzip -c | tar xf -
+            else
+                tar xzvf "$1"
+            fi
+            shift
+            ;;
+
+
+        *.bz2)
+            out="${1%%.bz2}"
+            if [ $pv_avaliable == true ]
+            then
+                pv "$1" | bunzip2 -c - >"$out"
+            else
+                bunzip2 -cv "$1" >"$out"
+            fi
+            shift
+            ;;
+
+
+        *.gz)
+            out="${1%%.gz}"
+            if [ $pv_avaliable == true ]
+            then
+                pv "$1" | gunzip -c - >"$out"
+            else
+                gunzip -cv "$1" >"$out"
+            fi
+            shift
+            ;;
+
+
+        *.7z|*.7zip)
+            7z x "$1"
+            shift
+            ;;
+
+
+        *.zip)
+            unzip "$1"
+            shift
+            ;;
+
+
+        *.rar)
+            rar x "$1"
+            shift
+            ;;
+
+
+        *)
+            echo "Can't recognize format of '$1'. See `basename $0` --help for details."
+            exit 1
+            ;;
+    esac
+done
+
