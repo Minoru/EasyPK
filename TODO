@@ -3,6 +3,5 @@ EasyPK TODO
 
 ~  what if archive (or output file) already exist?
 ~  what if "." or ".." specified as input or output file?
-~  what if directory passed to gz or bz2?
 ~  messages revision: add some nice things (bold, underlying, “” etcetera)
 
