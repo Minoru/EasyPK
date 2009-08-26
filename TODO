@@ -1,14 +1,8 @@
 EasyPK TODO
 
 
-~  need to add "--" to all archivers launches (because files starting with "-"
-   and "--" will not be processed)
 ~  what if archive (or output file) already exist?
 ~  need to exclude output files from $files variable
-~  add "--" option (all "-o" and "--help" placed after it will be ignored). And
-   do not forget to add -- to all archivers else they will try to process
-   "--help" and so in their own way, not as a files
-~  use getopt for handling parameters given to script
 ~  what if "." or ".." specified as input or output file?
 ~  what if directory passed to gz or bz2?
 
