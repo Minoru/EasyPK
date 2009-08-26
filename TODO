@@ -9,4 +9,6 @@ EasyPK TODO
    do not forget to add -- to all archivers else they will try to process
    "--help" and so in their own way, not as a files
 ~  use getopt for handling parameters given to script
+~  what if "." or ".." specified as input or output file?
+~  what if directory passed to gz or bz2?
 
