@@ -8,12 +8,12 @@
 #
 
 help() {
-    echo "USAGE: `basename $0` --help | file1 [file2 [file3 ...]]"
+    echo "USAGE: `basename $0` [ -h ] | file1 [file2 [file3 ...]]"
     echo "Supported archive formats is: tar, tar.bz2, tar.gz, bz2, gz, 7z, zip, rar."
 }
 
 # Check parameters
-if [ "$1" == "--help" ]
+if [ "$1" == "-h" ]
 then
     help
     exit
@@ -21,7 +21,7 @@ fi
 
 if [ -z "$*" ]
 then
-    echo "Specify files to unpack please. See `basename $0` --help for details."
+    echo "Specify files to unpack please. See `basename $0` -h for details."
     exit 1
 fi
 
@@ -113,7 +113,7 @@ do
 
 
         *)
-            echo "Can't recognize format of '$1'. See `basename $0` --help for details."
+            echo "Can't recognize format of '$1'. See `basename $0` -h for details."
             exit 1
             ;;
     esac

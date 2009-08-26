@@ -80,7 +80,7 @@ shift $(($OPTIND - 1))
 # Check parameters
 if [ -z "$format" ]
 then
-    echo "Specify archive format please. See `basename $0` --help for details."
+    echo "Specify archive format please. See `basename $0` -h for details."
     exit 1
 else
     if [ "$format" == "-h" ]
@@ -91,7 +91,7 @@ else
 
     if [ -z "$*" ]
     then
-        echo "Specify files to pack please. See `basename $0` --help for details."
+        echo "Specify files to pack please. See `basename $0` -h for details."
         exit 1
     fi
 fi
@@ -252,7 +252,7 @@ case $format in
 
 
     *)
-        echo "'$format' isn't supported archive format. See `basename $0` --help for details."
+        echo "'$format' isn't supported archive format. See `basename $0` -h for details."
         ;;
 esac
 
