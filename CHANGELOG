@@ -5,6 +5,10 @@ EasyPK CHANGELOG
 +  "--help" parameter changed to "-h" (due to getopts limitations).
 +  EasyPK now can handle files with names starts with dashes (i.e.,
    "--somefile.zip").
++  Warning if file passed to gzip/bzip2 isn't regular
+   Now if you will try to do something like "pk bz2 /dev/urandom" or
+   "pk gz /tmp/" you will get message saying that gzip/bzip2 doesn't work with
+   non-regular files (directories, block devices etc.)
 +  Minor bug fixes.
 
 2.1:
