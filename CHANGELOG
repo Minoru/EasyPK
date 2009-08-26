@@ -1,5 +1,12 @@
 EasyPK CHANGELOG
 
+2.2:
++  Switched to getopts for handling command line parameters.
++  "--help" parameter changed to "-h" (due to getopts limitations).
++  EasyPK now can handle files with names starts with dashes (i.e.,
+   "--somefile.zip").
++  Minor bug fixes.
+
 2.1:
 +  Initial relise on GitHub.
 +  Refactoring. I need to think little more before writing code.
@@ -7,7 +14,7 @@ EasyPK CHANGELOG
    If utility isn't avaliable, standard "v" switches of archivers will be
    enabled.
 
-2:
+2.0:
 
 +  "-o" switch added to pk. It allows user to specify archive filename. Works
    with tgz, tbz, tar, rar, zip and 7z archive types only. If no output file
