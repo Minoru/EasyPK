@@ -40,7 +40,7 @@ do
         *.tar)
             if [ $pv_avaliable == true ]
             then
-                pv "$1" | tar xf -
+                pv -- "$1" | tar xf -
             else
                 tar xvf "$1"
             fi
@@ -51,7 +51,7 @@ do
         *.tbz|*.tbz2|*.tar.bz2)
             if [ $pv_avaliable == true ]
             then
-                pv "$1" | bunzip2 -c | tar xf -
+                pv -- "$1" | bunzip2 -c | tar xf -
             else
                 tar xjvf "$1"
             fi
@@ -62,7 +62,7 @@ do
         *.tgz|*.tar.gz)
             if [ $pv_avaliable == true ]
             then
-                pv "$1" | gunzip -c | tar xf -
+                pv -- "$1" | gunzip -c | tar xf -
             else
                 tar xzvf "$1"
             fi
@@ -95,19 +95,21 @@ do
 
 
         *.7z|*.7zip)
-            7z x "$1"
+            7z x -- "$1"
             shift
             ;;
 
 
         *.zip)
-            unzip "$1"
+            # use 7z because unzip can't process files with names starting with
+            # dashes (i.e. "--somefile.zip")
+            7z x -- "$1"
             shift
             ;;
 
 
         *.rar)
-            rar x "$1"
+            rar x -- "$1"
             shift
             ;;
 
