@@ -14,24 +14,7 @@ help() {
     echo "-h          --  shows this help note"
 }
 
-parseargs () {
-    # parse parameters given to script
-    while getopts ":ho:" option
-    do
-        case $option in
-            h)
-                help
-                exit
-            ;;
-    
-            o)
-                out="$OPTARG"
-            ;;
-        esac
-    done
-    shift $(($OPTIND - 1))
-    
-    # Get filenames
+getFilenames () {
     while [ -n "$1" ]
     do
         if [ -z "$files" ]
@@ -78,6 +61,21 @@ rarargs="-m5"
 # Getting format of archive
 format="$1" && shift
 
+# parse parameters given to script
+while getopts ":ho:" option
+do
+    case $option in
+        h)
+            help
+            exit
+        ;;
+    
+        o)
+            out="$OPTARG"
+        ;;
+    esac
+done
+shift $(($OPTIND - 1))
 
 # Check parameters
 if [ -z "$format" ]
@@ -101,7 +99,7 @@ fi
 # Real work starts here!
 case $format in
     tar)
-        parseargs "$@"
+        getFilenames "$@"
         
         if [ -z "$out" ]
         then
@@ -115,16 +113,16 @@ case $format in
         
         if [ $pv_avaliable == true ]
         then
-            size=`eval du -b $files | tail -1 | grep -o '^[0-9]*'`
-            eval tar cf - $files | pv -s $size >"$out"
+            size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
+            eval tar cf - -- $files | pv -s $size >"$out"
         else
-            eval tar cvf "$out" $files
+            eval tar cvf -- "$out" $files
         fi
         ;;
 
     
     tbz)
-        parseargs "$@"
+        getFilenames "$@"
 
         if [ -z "$out" ]
         then
@@ -138,16 +136,16 @@ case $format in
         
         if [ $pv_avaliable == true ]
         then
-            size=`eval du -b $files | tail -1 | grep -o '^[0-9]*'`
-            eval tar cf - $files | pv -s $size | bzip2 -c $bzip2args - >"$out"
+            size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
+            eval tar cf - -- $files | pv -s $size | bzip2 -c $bzip2args - >"$out"
         else
-            eval tar cvf - $files | bzip2 -c $bzip2args - >"$out"
+            eval tar cvf - -- $files | bzip2 -c $bzip2args - >"$out"
         fi
         ;;
 
 
     tgz)
-        parseargs "$@"
+        getFilenames "$@"
 
         if [ -z "$out" ]
         then
@@ -161,10 +159,10 @@ case $format in
         
         if [ $pv_avaliable == true ]
         then
-            size=`eval du -b $files | tail -1 | grep -o '^[0-9]*'`
-            eval tar cf - $files | pv -s $size | gzip -c $gzipargs - >"$out"
+            size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
+            eval tar cf - -- $files | pv -s $size | gzip -c $gzipargs - >"$out"
         else
-            eval tar cvf - $files | gzip -c $gzipgargs - >"$out"
+            eval tar cvf - -- $files | gzip -c $gzipgargs - >"$out"
         fi
         ;;
     
@@ -174,13 +172,13 @@ case $format in
         then
             while [ -n "$1" ]
             do
-                pv "$1" | bzip2 -c $bzip2args - >"$1.bz2"
+                pv -- "$1" | bzip2 -c $bzip2args - >"$1.bz2"
                 shift
             done
         else
             while [ -n "$1" ]
             do
-                bzip2 -c $bzip2args $1 >"$1.bz2"
+                bzip2 -c $bzip2args -- "$1" >"$1.bz2"
                 shift
             done
         fi
@@ -192,13 +190,13 @@ case $format in
         then
             while [ -n "$1" ]
             do
-                pv "$1" | gzip -c $gzipargs - >"$1.gz"
+                pv -- "$1" | gzip -c $gzipargs - >"$1.gz"
                 shift
             done
         else
             while [ -n "$1" ]
             do
-                gzip -c $gzipargs $1 >"$1.gz"
+                gzip -c $gzipargs -- "$1" >"$1.gz"
                 shift
             done
         fi
@@ -206,8 +204,6 @@ case $format in
     
     
     zip)
-        parseargs "$@"
-
         if [ -z "$out" ]
         then
             if [ "$count" -eq "1" ]
@@ -218,12 +214,12 @@ case $format in
             fi
         fi
         
-        eval zip -qvR $zipargs "$out" $files
+        eval ls -- "$@" | zip -qvR $zipargs "$out" -@
         ;;
 
 
     7z)
-        parseargs "$@"
+        getFilenames "$@"
 
         if [ -z "$out" ]
         then
@@ -235,11 +231,11 @@ case $format in
             fi
         fi
         
-        eval 7z a $lzmaargs "$out" $files
+        eval 7z a $lzmaargs "$out" -- $files
         ;;
 
     rar)
-        parseargs "$@"
+        getFilenames "$@"
 
         if [ -z "$out" ]
         then
@@ -251,7 +247,7 @@ case $format in
             fi
         fi
         
-        eval rar a -r $lzmaargs -- "$out" $files
+        eval rar a -r $rarargs -- "$out" $files
         ;;
 
 
