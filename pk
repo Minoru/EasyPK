@@ -17,20 +17,24 @@ help() {
 getFilenames () {
     while [ -n "$1" ]
     do
-        if [ -z "$files" ]
+        # if current file isn't output file...
+        if [ "$1" != "$out" ]
         then
-            files="\"$1\""
-        else
-            files="$files \"$1\""
-        fi
+            if [ -z "$files" ]
+            then
+                files="\"$1\""
+            else
+                files="$files \"$1\""
+            fi
         
-        if [ -z "$out2" ]
-        then
-            out2="$1"
-        fi
+            if [ -z "$out2" ]
+            then
+                out2="$1"
+            fi
         
-        shift
-        let "count++"
+            shift
+            let "count++"
+        fi
     done
 }
 

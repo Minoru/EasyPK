@@ -2,7 +2,6 @@ EasyPK TODO
 
 
 ~  what if archive (or output file) already exist?
-~  need to exclude output files from $files variable
 ~  what if "." or ".." specified as input or output file?
 ~  what if directory passed to gz or bz2?
 
