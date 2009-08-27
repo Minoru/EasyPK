@@ -176,7 +176,7 @@ case $format in
         then
             while [ -n "$1" ]
             do
-                if [ ! -f "$1" ]
+                if [ -f "$1" ]
                 then
                     pv -- "$1" | bzip2 -c $bzip2args - >"$1.bz2"
                 else
@@ -187,7 +187,7 @@ case $format in
         else
             while [ -n "$1" ]
             do
-                if [ ! -f "$1" ]
+                if [ -f "$1" ]
                 then
                     bzip2 -c $bzip2args -- "$1" >"$1.bz2"
                 else
@@ -204,7 +204,7 @@ case $format in
         then
             while [ -n "$1" ]
             do
-                if [ ! -f "$1" ]
+                if [ -f "$1" ]
                 then
                     pv -- "$1" | gzip -c $gzipargs - >"$1.gz"
                 else
@@ -215,7 +215,7 @@ case $format in
         else
             while [ -n "$1" ]
             do
-                if [ ! -f "$1" ]
+                if [ -f "$1" ]
                 then
                     gzip -c $gzipargs -- "$1" >"$1.gz"
                 else
