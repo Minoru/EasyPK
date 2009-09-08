@@ -38,6 +38,19 @@ getFilenames () {
     done
 }
 
+setOutFilenames() {
+    # sets output fielnames
+    if [ -z "$out" ]
+    then
+        if [ "$count" -eq "1" ]
+        then
+            out="$out2.$1"
+        else
+            out="`basename \"$(pwd)\"`.$1"
+        fi
+    fi
+}
+
 # Initializing variables
 format="" # tar, tbz, tgz, bz and so on
 files="" # list of files to pack
@@ -105,15 +118,7 @@ case $format in
     tar)
         getFilenames "$@"
         
-        if [ -z "$out" ]
-        then
-            if [ "$count" -eq "1" ]
-            then
-                out="$out2.tar"
-            else
-                out="`basename $(pwd)`.tar"
-            fi
-        fi
+        setOutFilenames "tar"
         
         if [ $pv_avaliable == true ]
         then
@@ -128,16 +133,8 @@ case $format in
     tbz)
         getFilenames "$@"
 
-        if [ -z "$out" ]
-        then
-            if [ "$count" -eq "1" ]
-            then
-                out="$out2.tar.bz2"
-            else
-                out="`basename $(pwd)`.tar.bz2"
-            fi
-        fi
-        
+        setOutFilenames "tar.bz2"
+
         if [ $pv_avaliable == true ]
         then
             size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
@@ -151,16 +148,8 @@ case $format in
     tgz)
         getFilenames "$@"
 
-        if [ -z "$out" ]
-        then
-            if [ "$count" -eq "1" ]
-            then
-                out="$out2.tar.gz"
-            else
-                out="`basename $(pwd)`.tar.gz"
-            fi
-        fi
-        
+        setOutFilenames "tar.gz"
+
         if [ $pv_avaliable == true ]
         then
             size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
@@ -228,16 +217,8 @@ case $format in
     
     
     zip)
-        if [ -z "$out" ]
-        then
-            if [ "$count" -eq "1" ]
-            then
-                out="$out2.zip"
-            else
-                out="`basename $(pwd).zip`"
-            fi
-        fi
-        
+        setOutFilenames "zip"
+
         eval ls -- "$@" | zip -qvR $zipargs "$out" -@
         ;;
 
@@ -245,32 +226,16 @@ case $format in
     7z)
         getFilenames "$@"
 
-        if [ -z "$out" ]
-        then
-            if [ "$count" -eq "1" ]
-            then
-                out="$out2.zip"
-            else
-                out="`basename $(pwd).7z`"
-            fi
-        fi
-        
+        setOutFilenames "7z" 
+
         eval 7z a $lzmaargs "$out" -- $files
         ;;
 
     rar)
         getFilenames "$@"
 
-        if [ -z "$out" ]
-        then
-            if [ "$count" -eq "1" ]
-            then
-                out="$out2.zip"
-            else
-                out="`basename $(pwd).rar`"
-            fi
-        fi
-        
+        setOutFilenames "rar"
+
         eval rar a -r $rarargs -- "$out" $files
         ;;
 

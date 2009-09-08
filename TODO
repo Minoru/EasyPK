@@ -11,5 +11,4 @@ EasyPK TODO
    good enough
 ~  show percentage of saved space (like bzip2 and gzip do after finishing
    packing)
-~  pk: process spaces in directory name when creating output file name from it
 

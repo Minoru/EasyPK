@@ -1,5 +1,11 @@
 EasyPK CHANGELOG
 
+2.3:
++  setOutFilenames procedure added, few dozens of code lines saved :)
++  pk now can process spaces in directory names when creating archive names
+   from it (yeah, it's more like that it's just a bug fix :)
++  Minor bug fixes.
+
 2.2:
 +  Switched to getopts for handling command line parameters.
 +  "--help" parameter changed to "-h" (due to getopts limitations).
