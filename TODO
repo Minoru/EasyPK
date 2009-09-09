@@ -11,4 +11,5 @@ EasyPK TODO
    good enough
 ~  show percentage of saved space (like bzip2 and gzip do after finishing
    packing)
+~  show archive name in pv
 
