@@ -12,4 +12,7 @@ EasyPK TODO
 ~  show percentage of saved space (like bzip2 and gzip do after finishing
    packing)
 ~  show archive name in pv
+~  there are problems with terminating work - if user press Ctrl+C, only
+   current packing process terminates. It isn't useful because user probably
+   expect that whole script will be terminated.
 
