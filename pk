@@ -33,7 +33,7 @@ getFilenames () {
             fi
         
             shift
-            let "count++"
+            #let "count++"
         fi
     done
 }
@@ -52,9 +52,9 @@ setOutFilenames() {
 }
 
 # Initializing variables
-format="" # tar, tbz, tgz, bz and so on
+format="$1" && shift # tar, tbz, tgz, bz and so on
 files="" # list of files to pack
-count=0 # amount of files given to script
+count="$#" # amount of files given to script
 out="" # archive filename
 out2="" # archive filename; used by tar, tbz and so when only one file given
 
@@ -74,9 +74,6 @@ zipargs="-9"
 lzmaargs="-m0=lzma"
 rarargs="-m5"
 
-
-# Getting format of archive
-format="$1" && shift
 
 # parse parameters given to script
 while getopts ":ho:" option
@@ -217,7 +214,10 @@ case $format in
     
     
     zip)
-        setOutFilenames "zip"
+        if [ -z "$out" ]
+        then
+            out="$1.zip"
+        fi
 
         eval echo "$@" | zip -qvR $zipargs "$out" -@
         ;;
