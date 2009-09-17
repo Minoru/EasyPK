@@ -219,7 +219,7 @@ case $format in
     zip)
         setOutFilenames "zip"
 
-        eval ls -- "$@" | zip -qvR $zipargs "$out" -@
+        eval echo "$@" | zip -qvR $zipargs "$out" -@
         ;;
 
 
