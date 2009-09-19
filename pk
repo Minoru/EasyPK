@@ -33,7 +33,7 @@ getFilenames () {
             fi
         
             shift
-            #let "count++"
+            let "count++"
         fi
     done
 }
@@ -54,7 +54,7 @@ setOutFilenames() {
 # Initializing variables
 format="$1" && shift # tar, tbz, tgz, bz and so on
 files="" # list of files to pack
-count="$#" # amount of files given to script
+count="0" # amount of files given to script
 out="" # archive filename
 out2="" # archive filename; used by tar, tbz and so when only one file given
 
@@ -228,7 +228,7 @@ case $format in
 
         setOutFilenames "7z" 
 
-        eval 7z a $lzmaargs "$out" -- $files
+        eval 7z a $lzmaargs -- \"$out\" $files
         ;;
 
     rar)
@@ -236,7 +236,7 @@ case $format in
 
         setOutFilenames "rar"
 
-        eval rar a -r $rarargs -- "$out" $files
+        eval rar a -r $rarargs -- \"$out\" $files
         ;;
 
 
