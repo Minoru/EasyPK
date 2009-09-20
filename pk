@@ -70,7 +70,7 @@ fi
 # Some arguments which you want to pass to archivators
 bzip2args="--best"
 gzipargs="--best"
-zipargs="-9"
+zipargs="-mx9"
 lzmaargs="-m0=lzma"
 rarargs="-m5"
 
@@ -214,12 +214,11 @@ case $format in
     
     
     zip)
-        if [ -z "$out" ]
-        then
-            out="$1.zip"
-        fi
+        getFilenames "$@"
 
-        eval echo "$@" | zip -qvR $zipargs "$out" -@
+        setOutFilenames "zip"
+        
+        eval 7z a -tzip $zipargs -- \"$out\" $files 
         ;;
 
 
@@ -227,7 +226,7 @@ case $format in
         getFilenames "$@"
 
         setOutFilenames "7z" 
-
+        
         eval 7z a $lzmaargs -- \"$out\" $files
         ;;
 
