@@ -4,8 +4,8 @@ EasyPK README
  What EasyPK is?
 
 EasyPK is distribution of two BASH scripts named pk and unpk which handles
-archive creating and unpacking operations. Run every utility with --help swith
-and read usage notes - it will be enough for using scripts.
+archive creating and unpacking operations. Run every utility with -h switch and
+read usage notes - it will be enough for using scripts.
 
 
  Which archive types EasyPK supports?
@@ -23,11 +23,10 @@ Program     File extension
 tar         tar
 bzip2       bz2, tar.bz2
 gzip        gz, tar.gz
-zip         zip
 rar         rar
 7zip        7z
 
-Also you will need pv utility for displaying nice progress bars with speed and
+Also, you will need pv utility for displaying nice progress bars with speed and
 estimated time. Actually, pv isn't really needed, scripts will work even without
 it, but you'll lose progress bars.
 
