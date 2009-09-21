@@ -1,5 +1,15 @@
 EasyPK CHANGELOG
 
+dev:
++  switched from zip to 7zip for handling zip archives (reason is stupid zip's
+   command line interface)
++  unpk now have better logic (I took idea from atools): now archive unpacks to
+   temporary directory first (it named as base64 of PID of script), then checks
+   for amount of files in directory. If there is just one file, it will be
+   moved to directory where archive located. If there are few files, temporarty
+   directory will be renamed to name of archive without extension (say if there
+   is "books.tar.bz2", directory will be named as "books")
+
 2.3:
 +  setOutFilenames procedure added, few dozens of code lines saved :)
 +  pk now can process spaces in directory names when creating archive names
