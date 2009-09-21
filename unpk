@@ -12,6 +12,33 @@ help() {
     echo "Supported archive formats is: tar, tar.bz2, tar.gz, bz2, gz, 7z, zip, rar."
 }
 
+prepareTmp() {
+    # prepares temp directory
+
+    tmp="`echo $$ | base64 | sed 's/[^[:alpha:]]//g'`"
+    mkdir "$tmp" && cd "$tmp"
+}
+
+clearTmp() {
+    # clearTmp type_of_archive name_of_archive
+
+    name="`basename $2 .$1`"
+
+    if [ "`/bin/ls -l | wc -l`" -eq "2" ]
+    then
+        # if there are only one in the directory...
+        mv * ..
+        cd ..
+        rmdir "$tmp"
+    else
+        cd ..
+        mv "$tmp" "$name"
+    fi
+}
+
+#Initializing variables
+tmp=""
+
 # Check parameters
 if [ "$1" == "-h" ]
 then
@@ -38,34 +65,49 @@ while [ -n "$1" ]
 do
     case $1 in
         *.tar)
+            prepareTmp
+
             if [ $pv_avaliable == true ]
             then
-                pv -- "$1" | tar xf -
+                pv -- "../$1" | tar xf -
             else
-                tar xvf "$1"
+                tar xvf "../$1"
             fi
+
+            clearTmp "tar" "$1"
+
             shift
             ;;
 
 
-        *.tbz|*.tbz2|*.tar.bz2)
+        *.tar.bz2)
+            prepareTmp
+
             if [ $pv_avaliable == true ]
             then
-                pv -- "$1" | bunzip2 -c | tar xf -
+                pv -- "../$1" | bunzip2 -c | tar xf -
             else
-                tar xjvf "$1"
+                tar xjvf "../$1"
             fi
+
+            clearTmp "tar.bz2" "$1"
+
             shift
             ;;
 
     
-        *.tgz|*.tar.gz)
+        *.tar.gz)
+            prepareTmp
+
             if [ $pv_avaliable == true ]
             then
-                pv -- "$1" | gunzip -c | tar xf -
+                pv -- "../$1" | gunzip -c | tar xf -
             else
-                tar xzvf "$1"
+                tar xzvf "../$1"
             fi
+            
+            clearTmp "tar.gz" "$1"
+
             shift
             ;;
 
@@ -94,22 +136,35 @@ do
             ;;
 
 
-        *.7z|*.7zip)
-            7z x -- "$1"
+        *.7z)
+            prepareTmp
+
+            7z x -- "../$1"
+
+            clearTmp "7z" "$1"
+
             shift
             ;;
 
 
         *.zip)
-            # use 7z because unzip can't process files with names starting with
-            # dashes (i.e. "--somefile.zip")
-            7z x -- "$1"
+            prepareTmp
+
+            7z x -- "../$1"
+
+            clearTmp "zip" "$1"
+
             shift
             ;;
 
 
         *.rar)
-            rar x -- "$1"
+            prepareTmp
+
+            rar x -- "../$1"
+
+            clearTmp "rar" "$1"
+
             shift
             ;;
 
