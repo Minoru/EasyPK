@@ -83,7 +83,7 @@ do
 
             if [ $pv_avaliable == true ]
             then
-                pv -- "../$1" | tar xf -
+                pv --name "$1" -- "../$1" | tar xf -
             else
                 tar xvf "../$1"
             fi
@@ -97,7 +97,7 @@ do
 
             if [ $pv_avaliable == true ]
             then
-                pv -- "../$1" | bunzip2 -c | tar xf -
+                pv --name "$1" -- "../$1" | bunzip2 -c | tar xf -
             else
                 tar xjvf "../$1"
             fi
@@ -111,7 +111,7 @@ do
 
             if [ $pv_avaliable == true ]
             then
-                pv -- "../$1" | gunzip -c | tar xf -
+                pv --name "$1" -- "../$1" | gunzip -c | tar xf -
             else
                 tar xzvf "../$1"
             fi
@@ -124,7 +124,7 @@ do
             out="${1%%.bz2}"
             if [ $pv_avaliable == true ]
             then
-                pv "$1" | bunzip2 -c - >"$out"
+                pv --name "$1" -- "$1" | bunzip2 -c - >"$out"
             else
                 bunzip2 -cv "$1" >"$out"
             fi
@@ -135,7 +135,7 @@ do
             out="${1%%.gz}"
             if [ $pv_avaliable == true ]
             then
-                pv "$1" | gunzip -c - >"$out"
+                pv --name "$1" -- "$1" | gunzip -c - >"$out"
             else
                 gunzip -cv "$1" >"$out"
             fi
