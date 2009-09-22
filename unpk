@@ -29,12 +29,13 @@ clearTmp() {
     if [ "`/bin/ls -l | wc -l`" -eq "2" ]
     then
         # if there are only one in the directory...
+        rm -rf ../"`/bin/ls`"
         mv * ..
         cd ..
         rmdir "$tmp"
     else
         cd ..
-        rm -r "$name"
+        rm -rf "$name"
         mv "$tmp" "$name"
     fi
 }
