@@ -12,4 +12,6 @@ EasyPK TODO
 ~  there are problems with terminating work - if user press Ctrl+C, only
    current packing process terminates. It isn't useful because user probably
    expect that whole script will be terminated.
+~  need to do revision of options used in code. For example, "pv -s" isn't
+   very good understandable, "pv --size" will be much better.
 
