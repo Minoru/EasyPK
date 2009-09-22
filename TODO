@@ -3,8 +3,6 @@ EasyPK TODO
 
 ~  what if "." or ".." specified as input or output file?
 ~  messages revision: add some nice things (bold, underlying, “” etcetera)
-~  "-d" option -- delete files after adding them to archive (pk) or delete
-   archive after unpacking it (unpk)
 ~  check for archivers and show error messages if not found
 ~  it's time to decide which license should I use for EasyPK. GNU GPL v3 looks
    good enough

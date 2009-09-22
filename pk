@@ -8,10 +8,11 @@
 #
 
 help() {
-    echo "USAGE: `basename $0` -h | tar|tbz|tgz|bz2|gz|7z|zip|rar -o outfile file1 [file2 [file3 ...]]"
+    echo "USAGE: `basename $0` -h | tar|tbz|tgz|bz2|gz|7z|zip|rar [-d] [-o outfile] file1 [file2 [file3 ...]]"
     echo ""
     echo "-o outfile  --  set name of archive to \"outfile\""
     echo "-h          --  shows this help note"
+    echo "-d          --  delete files after packing"
 }
 
 getFilenames () {
@@ -76,6 +77,7 @@ files="" # list of files to pack
 count="0" # amount of files given to script
 out="" # archive filename
 out2="" # archive filename; used by tar, tbz and so when only one file given
+deleteAfter=false
 
 # checking for pv
 if command -v pv &>/dev/null
@@ -95,7 +97,7 @@ rarargs="-m5"
 
 
 # parse parameters given to script
-while getopts ":ho:" option
+while getopts ":hdo:" option
 do
     case $option in
         h)
@@ -105,6 +107,10 @@ do
     
         o)
             out="$OPTARG"
+        ;;
+
+        d)
+            deleteAfter=true
         ;;
     esac
 done
@@ -145,6 +151,8 @@ case $format in
         else
             eval tar cvf -- "$out" $files
         fi
+
+        $deleteAfter && eval rm $files
         ;;
 
     
@@ -162,6 +170,8 @@ case $format in
         else
             eval tar cvf - -- $files | bzip2 -c $bzip2args - >"$out"
         fi
+
+        $deleteAfter && eval rm $files
         ;;
 
 
@@ -179,6 +189,8 @@ case $format in
         else
             eval tar cvf - -- $files | gzip -c $gzipgargs - >"$out"
         fi
+
+        $deleteAfter && eval rm $files
         ;;
     
     
@@ -195,6 +207,9 @@ case $format in
                 else
                     echo "“$1” is not a regular file, bzip2 can not process it!"
                 fi
+
+                $deleteAfter && rm "$1"
+
                 shift
             done
         else
@@ -208,6 +223,9 @@ case $format in
                 else
                     echo "“$1” is not a regular file, bzip2 can not process it!"
                 fi
+                
+                $deleteAfter && rm "$1"
+
                 shift
             done
         fi
@@ -227,6 +245,9 @@ case $format in
                 else
                     echo "”$1” is not a regular file, gzip can not process it!"
                 fi
+
+                $deleteAfter && rm "$1"
+
                 shift
             done
         else
@@ -240,6 +261,9 @@ case $format in
                 else
                     echo "“$1” is not a regular file, gzip can not precess it!"
                 fi
+
+                $deleteAfter && rm "$1"
+
                 shift
             done
         fi
@@ -254,6 +278,8 @@ case $format in
         checkForOutFile "$out" && exit
         
         eval 7z a -tzip $zipargs -- \"$out\" $files 
+
+        $deleteAfter && eval rm $files
         ;;
 
 
@@ -265,6 +291,8 @@ case $format in
         checkForOutFile "$out" && exit
         
         eval 7z a $lzmaargs -- \"$out\" $files
+
+        $deleteAfter && eval rm $files
         ;;
 
     rar)
@@ -275,6 +303,8 @@ case $format in
         checkForOutFile "$out" && exit
 
         eval rar a -r $rarargs -- \"$out\" $files
+
+        $deleteAfter && eval rm $files
         ;;
 
 

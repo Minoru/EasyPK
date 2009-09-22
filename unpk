@@ -8,8 +8,10 @@
 #
 
 help() {
-    echo "USAGE: `basename $0` [ -h ] | file1 [file2 [file3 ...]]"
+    echo "USAGE: `basename $0` [ -h ] | [-d] file1 [file2 [file3 ...]]"
     echo "Supported archive formats is: tar, tar.bz2, tar.gz, bz2, gz, 7z, zip, rar."
+    echo "-h  --  show this note"
+    echo "-d  --  delete archive after unpacking"
 }
 
 prepareTmp() {
@@ -38,13 +40,23 @@ clearTmp() {
 
 #Initializing variables
 tmp=""
+deleteAfter=false
 
-# Check parameters
-if [ "$1" == "-h" ]
-then
-    help
-    exit
-fi
+# checking options
+while getopts ":hd" option
+do
+    case $option in
+        h)
+            help
+            exit
+        ;;
+
+        d)
+            deleteAfter=true
+        ;;
+    esac
+done
+shift $(($OPTIND - 1))
 
 if [ -z "$*" ]
 then
@@ -75,8 +87,6 @@ do
             fi
 
             clearTmp "tar" "$1"
-
-            shift
             ;;
 
 
@@ -91,8 +101,6 @@ do
             fi
 
             clearTmp "tar.bz2" "$1"
-
-            shift
             ;;
 
     
@@ -107,8 +115,6 @@ do
             fi
             
             clearTmp "tar.gz" "$1"
-
-            shift
             ;;
 
 
@@ -120,7 +126,6 @@ do
             else
                 bunzip2 -cv "$1" >"$out"
             fi
-            shift
             ;;
 
 
@@ -132,7 +137,6 @@ do
             else
                 gunzip -cv "$1" >"$out"
             fi
-            shift
             ;;
 
 
@@ -142,8 +146,6 @@ do
             7z x -- "../$1"
 
             clearTmp "7z" "$1"
-
-            shift
             ;;
 
 
@@ -153,8 +155,6 @@ do
             7z x -- "../$1"
 
             clearTmp "zip" "$1"
-
-            shift
             ;;
 
 
@@ -164,8 +164,6 @@ do
             rar x -- "../$1"
 
             clearTmp "rar" "$1"
-
-            shift
             ;;
 
 
@@ -174,5 +172,9 @@ do
             exit 1
             ;;
     esac
+
+    $deleteAfter && rm "$1"
+
+    shift
 done
 
