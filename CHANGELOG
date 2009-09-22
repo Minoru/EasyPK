@@ -9,6 +9,9 @@ dev:
    moved to directory where archive located. If there are few files, temporarty
    directory will be renamed to name of archive without extension (say if there
    is "books.tar.bz2", directory will be named as "books")
++  -d option added
++  check for output file existion in pk added. If archive already exist, ask
+   user if he want file to be owerwritten.
 
 2.3:
 +  setOutFilenames procedure added, few dozens of code lines saved :)
