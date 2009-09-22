@@ -34,6 +34,7 @@ clearTmp() {
         rmdir "$tmp"
     else
         cd ..
+        rm -r "$name"
         mv "$tmp" "$name"
     fi
 }
