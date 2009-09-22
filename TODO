@@ -1,7 +1,6 @@
 EasyPK TODO
 
 
-~  what if archive (or output file) already exist?
 ~  what if "." or ".." specified as input or output file?
 ~  messages revision: add some nice things (bold, underlying, “” etcetera)
 ~  "-d" option -- delete files after adding them to archive (pk) or delete

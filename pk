@@ -51,6 +51,25 @@ setOutFilenames() {
     fi
 }
 
+checkForOutFile() {
+    out="$1"
+
+    if [ -e "$out" ]
+    then
+        echo -n "Warning: output file ($out) already exist. Want it to be owerwritten? (Y/N) "
+        read -n 1 answer
+        echo
+        if [ "$answer" != "Y" -a "$answer" != "y" ]
+            then
+                return 0
+            else
+                return 1
+            fi
+    else
+        return 1
+    fi
+}
+
 # Initializing variables
 format="$1" && shift # tar, tbz, tgz, bz and so on
 files="" # list of files to pack
@@ -116,7 +135,9 @@ case $format in
         getFilenames "$@"
         
         setOutFilenames "tar"
-        
+
+        checkForOutFile "$out" && exit
+
         if [ $pv_avaliable == true ]
         then
             size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
@@ -131,6 +152,8 @@ case $format in
         getFilenames "$@"
 
         setOutFilenames "tar.bz2"
+
+        checkForOutFile "$out" && exit
 
         if [ $pv_avaliable == true ]
         then
@@ -147,6 +170,8 @@ case $format in
 
         setOutFilenames "tar.gz"
 
+        checkForOutFile "$out" && exit
+
         if [ $pv_avaliable == true ]
         then
             size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
@@ -162,6 +187,8 @@ case $format in
         then
             while [ -n "$1" ]
             do
+                checkForOutFile "$1.bz2" && shift && continue
+
                 if [ -f "$1" ]
                 then
                     pv -- "$1" | bzip2 -c $bzip2args - >"$1.bz2"
@@ -173,6 +200,8 @@ case $format in
         else
             while [ -n "$1" ]
             do
+                checkForOutFile "$1.bz2" && shift && continue
+
                 if [ -f "$1" ]
                 then
                     bzip2 -c $bzip2args -- "$1" >"$1.bz2"
@@ -190,6 +219,8 @@ case $format in
         then
             while [ -n "$1" ]
             do
+                checkForOutFile "$1.gz" && shift && continue
+
                 if [ -f "$1" ]
                 then
                     pv -- "$1" | gzip -c $gzipargs - >"$1.gz"
@@ -201,6 +232,8 @@ case $format in
         else
             while [ -n "$1" ]
             do
+                checkForOutFile "$1.gz" && shift && continue
+
                 if [ -f "$1" ]
                 then
                     gzip -c $gzipargs -- "$1" >"$1.gz"
@@ -217,6 +250,8 @@ case $format in
         getFilenames "$@"
 
         setOutFilenames "zip"
+
+        checkForOutFile "$out" && exit
         
         eval 7z a -tzip $zipargs -- \"$out\" $files 
         ;;
@@ -226,6 +261,8 @@ case $format in
         getFilenames "$@"
 
         setOutFilenames "7z" 
+
+        checkForOutFile "$out" && exit
         
         eval 7z a $lzmaargs -- \"$out\" $files
         ;;
@@ -234,6 +271,8 @@ case $format in
         getFilenames "$@"
 
         setOutFilenames "rar"
+
+        checkForOutFile "$out" && exit
 
         eval rar a -r $rarargs -- \"$out\" $files
         ;;
