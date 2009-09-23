@@ -11,7 +11,10 @@ dev:
    is "books.tar.bz2", directory will be named as "books")
 +  -d option added
 +  check for output file existion in pk added. If archive already exist, ask
-   user if he want file to be owerwritten.
+   user if he want file to be owerwritten
++  now scripts show archive name when processing it (on the left of the
+   progress bar)
++  bug fixes
 
 2.3:
 +  setOutFilenames procedure added, few dozens of code lines saved :)
