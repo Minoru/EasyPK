@@ -24,7 +24,7 @@ prepareTmp() {
 clearTmp() {
     # clearTmp type_of_archive name_of_archive
 
-    name="`basename $2 .$1`"
+    name="`basename "$2" .$1`"
 
     if [ "`/bin/ls -l | wc -l`" -eq "2" ]
     then
