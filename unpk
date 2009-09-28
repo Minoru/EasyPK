@@ -43,6 +43,7 @@ clearTmp() {
 #Initializing variables
 tmp=""
 deleteAfter=false
+unpkSuccess=false
 
 # checking options
 while getopts ":hd" option
@@ -89,6 +90,11 @@ do
                 tar xvf "../$1"
             fi
 
+            if [ "$?" == "0" ]
+            then
+                unpkSuccess=true
+            fi
+
             clearTmp "tar" "$1"
             ;;
 
@@ -102,6 +108,11 @@ do
                 pv -- "../$1" | bunzip2 -c | tar xf -
             else
                 tar xjvf "../$1"
+            fi
+
+            if [ "$?" == "0" ]
+            then
+                unpkSuccess=true
             fi
 
             clearTmp "tar.bz2" "$1"
@@ -118,7 +129,12 @@ do
             else
                 tar xzvf "../$1"
             fi
-            
+ 
+            if [ "$?" == "0" ]
+            then
+                unpkSuccess=true
+            fi
+           
             clearTmp "tar.gz" "$1"
             ;;
 
@@ -152,6 +168,11 @@ do
 
             7z x -- "../$1"
 
+            if [ "$?" == "0" ]
+            then
+                unpkSuccess=true
+            fi
+
             clearTmp "7z" "$1"
             ;;
 
@@ -161,6 +182,11 @@ do
 
             7z x -- "../$1"
 
+            if [ "$?" == "0" ]
+            then
+                unpkSuccess=true
+            fi
+
             clearTmp "zip" "$1"
             ;;
 
@@ -169,6 +195,11 @@ do
             prepareTmp
 
             rar x -- "../$1"
+
+            if [ "$?" == "0" ]
+            then
+                unpkSuccess=true
+            fi
 
             clearTmp "rar" "$1"
             ;;
@@ -180,7 +211,7 @@ do
             ;;
     esac
 
-    $deleteAfter && rm "$1"
+    $deleteAfter && $unpkSuccess && rm "$1"
 
     shift
 done
