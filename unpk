@@ -148,6 +148,11 @@ do
             else
                 bunzip2 -cv "$1" >"$out"
             fi
+
+            if [ "$?" == "0" ]
+            then
+                unpkSuccess=true
+            fi
             ;;
 
 
@@ -159,6 +164,11 @@ do
                 pv -- "$1" | gunzip -c - >"$out"
             else
                 gunzip -cv "$1" >"$out"
+            fi
+
+            if [ "$?" == "0" ]
+            then
+                unpkSuccess=true
             fi
             ;;
 
