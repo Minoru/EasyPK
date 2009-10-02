@@ -147,7 +147,8 @@ case $format in
         if [ $pv_avaliable == true ]
         then
             size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
-            eval tar cf - -- $files | pv -s $size --name "$out" >"$out"
+            echo "${out}:"
+            eval tar cf - -- $files | pv -s $size >"$out"
         else
             eval tar cvf -- "$out" $files
         fi
@@ -166,7 +167,8 @@ case $format in
         if [ $pv_avaliable == true ]
         then
             size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
-            eval tar cf - -- $files | pv -s $size --name "$out" | bzip2 -c $bzip2args - >"$out"
+            echo "${out}:"
+            eval tar cf - -- $files | pv -s $size | bzip2 -c $bzip2args - >"$out"
         else
             eval tar cvf - -- $files | bzip2 -c $bzip2args - >"$out"
         fi
@@ -185,7 +187,8 @@ case $format in
         if [ $pv_avaliable == true ]
         then
             size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
-            eval tar cf - -- $files | pv -s $size --name "$out" | gzip -c $gzipargs - >"$out"
+            echo "${out}:"
+            eval tar cf - -- $files | pv -s $size | gzip -c $gzipargs - >"$out"
         else
             eval tar cvf - -- $files | gzip -c $gzipgargs - >"$out"
         fi
@@ -203,7 +206,8 @@ case $format in
 
                 if [ -f "$1" ]
                 then
-                    pv --name "$out" -- "$1" | bzip2 -c $bzip2args - >"$1.bz2"
+                    echo "${out}:"
+                    pv -- "$1" | bzip2 -c $bzip2args - >"$1.bz2"
                 else
                     echo "“$1” is not a regular file, bzip2 can not process it!"
                 fi
@@ -241,7 +245,8 @@ case $format in
 
                 if [ -f "$1" ]
                 then
-                    pv --name "$out" -- "$1" | gzip -c $gzipargs - >"$1.gz"
+                    echo "${out}:"
+                    pv -- "$1" | gzip -c $gzipargs - >"$1.gz"
                 else
                     echo "”$1” is not a regular file, gzip can not process it!"
                 fi
