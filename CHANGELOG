@@ -1,19 +1,23 @@
 EasyPK CHANGELOG
 
 dev:
-+  switched from zip to 7zip for handling zip archives (reason is stupid zip's
+
+2.4:
++  Switched from zip to 7zip for handling zip archives (reason is stupid zip's
    command line interface)
 +  unpk now have better logic (I took idea from atools): now archive unpacks to
-   temporary directory first (it named as base64 of PID of script), then checks
-   for amount of files in directory. If there is just one file, it will be
-   moved to directory where archive located. If there are few files, temporarty
-   directory will be renamed to name of archive without extension (say if there
-   is "books.tar.bz2", directory will be named as "books")
+   temporary directory first (it's named as base64 of PID of script), then
+   checks for amount of files in directory. If there is just one file, it will
+   be moved to directory where archive located. If there are few files,
+   temporary directory will be renamed to name of archive without extension (say
+   if there is "books.tar.bz2", directory will be named "books")
 +  -d option added
-+  check for output file existion in pk added. If archive already exist, ask
-   user if he want file to be owerwritten
-+  now scripts show archive name when processing it (on the left of the
-   progress bar)
++  Check for output file existion in pk added. If archive already exist, ask
+   user if he want file to be overwritten
++  Scripts show archive name when processing it
++  Support for tgz, tbz2 and tar.bz2 extensions added to unpk;
+   pk now understand "tbz2" as file format specificator
++  Man pages written
 +  bug fixes
 
 2.3:

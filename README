@@ -5,7 +5,8 @@ EasyPK README
 
 EasyPK is distribution of two BASH scripts named pk and unpk which handles
 archive creating and unpacking operations. Run every utility with -h switch and
-read usage notes - it will be enough for using scripts.
+read usage notes - it will be enough for using scripts. You can install man
+pages (read INSTALL first) and read them otherwise.
 
 
  Which archive types EasyPK supports?
@@ -16,15 +17,8 @@ See table in "Which programs EasyPK requires?" section.
  Which progams EasyPK requires?
 
 You must have archivers installed for handling corresponging archives - bzip2
-for bz2, gzip for gz, tar for tar and so on. Full list of supported archives
-and file types:
-
-Program     File extension
-tar         tar
-bzip2       bz2, tar.bz2
-gzip        gz, tar.gz
-rar         rar
-7zip        7z
+for bz2, gzip for gz, tar for tar and so on. Full list of all the programs
+which could be required: tar, gzip, bzip2, rar, 7z.
 
 Also, you will need pv utility for displaying nice progress bars with speed and
 estimated time. Actually, pv isn't really needed, scripts will work even without
@@ -33,6 +27,5 @@ it, but you'll lose progress bars.
 
  How to install it in my system?
 
-Just move pk and unpk files to any direstory presented in your PATH environment
-variable.
+Read INSTALL.
 
