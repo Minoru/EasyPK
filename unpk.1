@@ -1,3 +1,66 @@
-.\" This is man page for unpk
-.\" It should be placed into man1/ directory
+.TH unpk 1 "January 19, 2010" "EasyPK 2.3"
+.SH NAME
+unpk \- UNPacK script
+.SH SYNOPSIS
+.B unpk -h|[-d]
+.I 
+file
+.B ...
+.SH DESCRIPTION
+.B unpk
+is a part of EasyPK package which aimed to simplify archives handling. unpk gives you unified interface for decompressing and unpacking tar, gzip, bzip2, zip, 7zip and rar archives.
+.P
+.B
+unpk
+uses
+.BR pv (1)
+utility to show nice progress bars while creating archives, but it will work without pv too.
+.SH OPTIONS
+.TP
+.B \-h
+Display a short help
+.TP
+.B \-d
+Delete archive after unpacking it
+.TP
+.SH EXIT STATUS
+Exit status is normally 0; if an error occurs,
+.B
+unpk
+returns number of error. See
+.B
+ERRORS
+for details.
+.SH ERRORS
+.TP
+.B 0
+No errors occurred.
+.TP
+.B 1
+Archive format not specified.
+.TP
+.B 2
+Input files not specified.
+.SH BUGS
+There are some certainly. If you found one, please mail the author (see
+.B
+AUTHOR
+section for details).
+.SH EXAMPLES
+.TP
+.B unpk -d backup.tar
+Extract files from backup and delete it.
+.TP
+.SH AUTHOR
+The author of this software is Alexander Batischev.
+You can mail him about EasyPK at <\fIeual.jp@gmail.com\fR>
+.SH SEE ALSO
+.BR pk (1),
+.BR atool (1),
+.BR bzip2 (1),
+.BR gzip (1),
+.BR pv (1),
+.BR rar (1)
+.BR tar (1),
+.BR 7z (1)
 
