@@ -8,11 +8,17 @@ outfile
 .B
 ]
 .I
-file1
+file
 .B ...
 .SH DESCRIPTION
 .B pk
 is a part of EasyPK package which aimed to simplify archives handling. pk gives you unified interface for creating tar, gzip, bzip2, zip, 7zip and rar archives.
+.P
+.B
+pk
+uses
+.BR pv (1)
+utility to show nice progress bars while creating archives, but it will work without pv too.
 .SH OPTIONS
 .TP
 .B \-h
@@ -48,7 +54,26 @@ Archive format not specified.
 .B 2
 Input files not specified.
 .SH BUGS
-.SH EXAMPLE
-.SH AUTHORS
+There are some certainly. If you found one, please mail the author (see
+.B
+AUTHOR
+section for details).
+.SH EXAMPLES
+.TP
+.B pk tar -o /tmp/backup.tar ~/documents ~/photos
+Create backup of your documents and photos
+.TP
+.B pk tbz -d logs
+Create compressed archive with your logs and delete input files.
+.SH AUTHOR
+The author of this software is Alexander Batischev.
+You can mail him about EasyPK at <\fIeual.jp@gmail.com\fR>
 .SH SEE ALSO
+.BR atool (1),
+.BR bzip2 (1),
+.BR gzip (1),
+.BR pv (1),
+.BR rar (1)
+.BR tar (1),
+.BR 7z (1)
 
