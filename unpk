@@ -45,16 +45,16 @@ clearTmp() {
 
     name="`basename "$2" .$1`"
 
-    if [ "`/bin/ls -l | wc -l`" -eq "2" ]
+    if [ "`/bin/ls -l | wc --lines`" -eq "2" ]
     then
         # if there are only one in the directory...
-        rm -rf ../"`/bin/ls`"
+        rm --recursive --force ../"`/bin/ls`"
         mv * ..
         cd ..
         rmdir "$tmp"
     else
         cd ..
-        rm -rf "$name"
+        rm --recursive --force "$name"
         mv "$tmp" "$name"
     fi
 }
@@ -104,9 +104,9 @@ do
             if [ $pv_avaliable == true ]
             then
                 echo "$1:"
-                pv -- "../$1" | tar xf -
+                pv -- "../$1" | tar --extract --file -
             else
-                tar xvf "../$1"
+                tar --extract --verbose --file "../$1"
             fi
 
             if [ "$?" == "0" ]
@@ -124,9 +124,9 @@ do
             if [ $pv_avaliable == true ]
             then
                 echo "$1:"
-                pv -- "../$1" | bunzip2 -c | tar xf -
+                pv -- "../$1" | bunzip2 --stdout | tar --extract --file -
             else
-                tar xjvf "../$1"
+                tar --extract --bzip2 --verbose --file "../$1"
             fi
 
             if [ "$?" == "0" ]
@@ -148,9 +148,9 @@ do
             if [ $pv_avaliable == true ]
             then
                 echo "$1:"
-                pv -- "../$1" | gunzip -c | tar xf -
+                pv -- "../$1" | gunzip --stdout | tar --extract --file -
             else
-                tar xzvf "../$1"
+                tar --extract --gzip --verbose --file "../$1"
             fi
  
             if [ "$?" == "0" ]
@@ -170,9 +170,9 @@ do
             if [ $pv_avaliable == true ]
             then
                 echo "$1:"
-                pv -- "$1" | bunzip2 -c - >"$out"
+                pv -- "$1" | bunzip2 --stdout - >"$out"
             else
-                bunzip2 -cv "$1" >"$out"
+                bunzip2 --stdout --verbose "$1" >"$out"
             fi
 
             if [ "$?" == "0" ]
@@ -187,9 +187,9 @@ do
             if [ $pv_avaliable == true ]
             then
                 echo "$1:"
-                pv -- "$1" | gunzip -c - >"$out"
+                pv -- "$1" | gunzip --stdout - >"$out"
             else
-                gunzip -cv "$1" >"$out"
+                gunzip --stdout --verbose "$1" >"$out"
             fi
 
             if [ "$?" == "0" ]

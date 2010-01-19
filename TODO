@@ -6,8 +6,6 @@ EasyPK TODO
 ~  check for archivers and show error messages if not found
 ~  show percentage of saved space (like bzip2 and gzip do after finishing
    packing)
-~  need to do revision of options used in code. For example, "pv -s" isn't
-   very good understandable, "pv --size" will be much better.
 ~  what if program was called in way like "pk filename"? Yeah, pk will ask user
    to specify *filenames*, but it might ask for *archive type*!
 

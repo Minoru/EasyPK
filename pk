@@ -165,14 +165,14 @@ case $format in
 
         if [ $pv_avaliable == true ]
         then
-            size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
+            size=`eval du --bytes --total -- $files | tail -1 | grep --only-matching '^[0-9]*'`
             echo "${out}:"
-            eval tar cf - -- $files | pv -s $size >"$out"
+            eval tar --create --file - -- $files | pv --size $size >"$out"
         else
-            eval tar cvf -- "$out" $files
+            eval tar --create --verbose --file -- "$out" $files
         fi
 
-        $deleteAfter && eval rm -r $files
+        $deleteAfter && eval rm --recursive $files
         ;;
 
     
@@ -185,14 +185,14 @@ case $format in
 
         if [ $pv_avaliable == true ]
         then
-            size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
+            size=`eval du --bytes --total -- $files | tail -1 | grep --only-matching '^[0-9]*'`
             echo "${out}:"
-            eval tar cf - -- $files | pv -s $size | bzip2 -c $bzip2args - >"$out"
+            eval tar --create --file - -- $files | pv --size $size | bzip2 --stdout $bzip2args - >"$out"
         else
-            eval tar cvf - -- $files | bzip2 -c $bzip2args - >"$out"
+            eval tar --create --verbose --file - -- $files | bzip2 --stdout $bzip2args - >"$out"
         fi
 
-        $deleteAfter && eval rm -r $files
+        $deleteAfter && eval rm --recursive $files
         ;;
 
 
@@ -205,14 +205,14 @@ case $format in
 
         if [ $pv_avaliable == true ]
         then
-            size=`eval du -cb -- $files | tail -1 | grep -o '^[0-9]*'`
+            size=`eval du --bytes --total -- $files | tail -1 | grep --only-matching '^[0-9]*'`
             echo "${out}:"
-            eval tar cf - -- $files | pv -s $size | gzip -c $gzipargs - >"$out"
+            eval tar --create --file - -- $files | pv --size $size | gzip --stdout $gzipargs - >"$out"
         else
-            eval tar cvf - -- $files | gzip -c $gzipgargs - >"$out"
+            eval tar --create --verbose --file - -- $files | gzip --stdout $gzipgargs - >"$out"
         fi
 
-        $deleteAfter && eval rm -r $files
+        $deleteAfter && eval rm --recursive $files
         ;;
     
     
@@ -226,7 +226,7 @@ case $format in
                 if [ -f "$1" ]
                 then
                     echo "${out}:"
-                    pv -- "$1" | bzip2 -c $bzip2args - >"$1.bz2"
+                    pv -- "$1" | bzip2 --stdout $bzip2args - >"$1.bz2"
                 else
                     echo "“$1” is not a regular file, bzip2 can not process it!"
                 fi
@@ -242,7 +242,7 @@ case $format in
 
                 if [ -f "$1" ]
                 then
-                    bzip2 -c $bzip2args -- "$1" >"$1.bz2"
+                    bzip2 --stdout $bzip2args -- "$1" >"$1.bz2"
                 else
                     echo "“$1” is not a regular file, bzip2 can not process it!"
                 fi
@@ -265,7 +265,7 @@ case $format in
                 if [ -f "$1" ]
                 then
                     echo "${out}:"
-                    pv -- "$1" | gzip -c $gzipargs - >"$1.gz"
+                    pv -- "$1" | gzip --stdout $gzipargs - >"$1.gz"
                 else
                     echo "”$1” is not a regular file, gzip can not process it!"
                 fi
@@ -281,7 +281,7 @@ case $format in
 
                 if [ -f "$1" ]
                 then
-                    gzip -c $gzipargs -- "$1" >"$1.gz"
+                    gzip --stdout $gzipargs -- "$1" >"$1.gz"
                 else
                     echo "“$1” is not a regular file, gzip can not precess it!"
                 fi
@@ -303,7 +303,7 @@ case $format in
         
         eval 7z a -tzip $zipargs -- \"$out\" $files 
 
-        $deleteAfter && eval rm -r $files
+        $deleteAfter && eval rm --recursive $files
         ;;
 
 
@@ -316,7 +316,7 @@ case $format in
         
         eval 7z a $lzmaargs -- \"$out\" $files
 
-        $deleteAfter && eval rm -r $files
+        $deleteAfter && eval rm --recursive $files
         ;;
 
     rar)
@@ -328,7 +328,7 @@ case $format in
 
         eval rar a -r $rarargs -- \"$out\" $files
 
-        $deleteAfter && eval rm -r $files
+        $deleteAfter && eval rm --recursive $files
         ;;
 
 
