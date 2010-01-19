@@ -193,7 +193,7 @@ case $format in
             eval tar cvf - -- $files | gzip -c $gzipgargs - >"$out"
         fi
 
-        $deleteAfter && eval rm $files
+        $deleteAfter && eval rm -r $files
         ;;
     
     
