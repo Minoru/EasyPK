@@ -99,7 +99,7 @@ do
             ;;
 
 
-        *.tar.bz2)
+        *.tar.bz2|*.tbz|*.tbz2)
             prepareTmp
 
             if [ $pv_avaliable == true ]
@@ -115,11 +115,15 @@ do
                 unpkSuccess=true
             fi
 
-            clearTmp "tar.bz2" "$1"
+            case $1 in
+                *.tar.bz2) clearTmp "tar.bz2" "$1" ;;
+                *.tbz)     clearTmp "tbz" "$1" ;;
+                *.tbz2)    clearTmp "tbz2" "$1" ;;
+            esac
             ;;
 
     
-        *.tar.gz)
+        *.tar.gz|*.tgz)
             prepareTmp
 
             if [ $pv_avaliable == true ]
@@ -135,7 +139,10 @@ do
                 unpkSuccess=true
             fi
            
-            clearTmp "tar.gz" "$1"
+            case $1 in
+                *.tar.gz) clearTmp "tar.gz" "$1" ;;
+                *.tgz)    clearTmp "tgz" "$1" ;;
+            esac
             ;;
 
 

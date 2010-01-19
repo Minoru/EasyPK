@@ -15,5 +15,4 @@ EasyPK TODO
    very good understandable, "pv --size" will be much better.
 ~  what if program was called in way like "pk filename"? Yeah, pk will ask user
    to specify *filenames*, but it might ask for *archive type*!
-~  add support for tgz and tbz2 file formats
 
