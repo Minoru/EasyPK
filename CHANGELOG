@@ -1,6 +1,7 @@
 EasyPK CHANGELOG
 
 dev:
++  Signal processing added (now scripts normally terminate with Ctrl+C)
 
 2.4:
 +  Switched from zip to 7zip for handling zip archives (reason is stupid zip's

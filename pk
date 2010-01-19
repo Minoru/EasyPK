@@ -15,6 +15,10 @@ help() {
     echo "-d          --  delete files after packing"
 }
 
+# exit with code 3 if Ctrl+C has been pressed or any of other terminating
+#  signals has been sent
+trap "exit 3" KILL TERM HUP INT
+
 getFilenames () {
     while [ -n "$1" ]
     do

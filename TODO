@@ -8,9 +8,6 @@ EasyPK TODO
    good enough
 ~  show percentage of saved space (like bzip2 and gzip do after finishing
    packing)
-~  there are problems with terminating work - if user press Ctrl+C, only
-   current packing process terminates. It isn't useful because user probably
-   expect that whole script will be terminated.
 ~  need to do revision of options used in code. For example, "pv -s" isn't
    very good understandable, "pv --size" will be much better.
 ~  what if program was called in way like "pk filename"? Yeah, pk will ask user

@@ -14,6 +14,10 @@ help() {
     echo "-d  --  delete archive after unpacking"
 }
 
+# exit with code 3 if Ctrl+C has been pressed or any other terminating signal
+#  has been sent
+trap "exit 3" KILL TERM HUP INT
+
 prepareTmp() {
     # prepares temp directory
 
