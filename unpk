@@ -64,7 +64,7 @@ shift $(($OPTIND - 1))
 if [ -z "$*" ]
 then
     echo "Specify files to unpack please. See `basename $0` -h for details."
-    exit 1
+    exit 2
 fi
 
 # checking for pv
