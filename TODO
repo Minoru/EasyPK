@@ -4,8 +4,6 @@ EasyPK TODO
 ~  what if "." or ".." specified as input or output file?
 ~  messages revision: add some nice things (bold, underlying, “” etcetera)
 ~  check for archivers and show error messages if not found
-~  it's time to decide which license should I use for EasyPK. GNU GPL v3 looks
-   good enough
 ~  show percentage of saved space (like bzip2 and gzip do after finishing
    packing)
 ~  need to do revision of options used in code. For example, "pv -s" isn't
