@@ -2,10 +2,51 @@
 .SH NAME
 pk \- PacK script
 .SH SYNOPSIS
+.B pk -h|tar|tbz|tgz|bz2|gz|7z|zip|rar [-d] [-o
+.I 
+outfile
+.B
+]
+.I
+file1
+.B ...
 .SH DESCRIPTION
+.B pk
+is a part of EasyPK package which aimed to simplify archives handling. pk gives you unified interface for creating tar, gzip, bzip2, zip, 7zip and rar archives.
 .SH OPTIONS
+.TP
+.B \-h
+Disply a short help
+.TP
+.B tar, tbz, tbz2, tgz, bz2, gz, 7z, zip, rar
+Resulting archive format
+.TP
+.B \-d
+Delete input files after adding them to archive
+.TP
+.BI \-o " outfile"
+Use
+.I
+outfile
+as output file
 .SH EXIT STATUS
+Exit status is normally 0; if an error occurs,
+.B
+pk
+returns number of error. See
+.B
+ERRORS
+for details.
 .SH ERRORS
+.TP
+.B 0
+No errors occurred.
+.TP
+.B 1
+Archive format not specified.
+.TP
+.B 2
+Input files not specified.
 .SH BUGS
 .SH EXAMPLE
 .SH AUTHORS
