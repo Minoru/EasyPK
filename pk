@@ -8,7 +8,7 @@
 #
 
 help() {
-    echo "USAGE: `basename $0` -h | tar|tbz|tgz|bz2|gz|7z|zip|rar [-d] [-o outfile] file1 [file2 [file3 ...]]"
+    echo "USAGE: `basename $0` -h | tar|tbz|tbz2|tgz|bz2|gz|7z|zip|rar [-d] [-o outfile] file1 [file2 [file3 ...]]"
     echo ""
     echo "-o outfile  --  set name of archive to \"outfile\""
     echo "-h          --  shows this help note"
@@ -157,7 +157,7 @@ case $format in
         ;;
 
     
-    tbz)
+    tbz|tbz2)
         getFilenames "$@"
 
         setOutFilenames "tar.bz2"
