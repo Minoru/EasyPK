@@ -8,4 +8,5 @@ EasyPK TODO
    packing)
 ~  what if program was called in way like "pk filename"? Yeah, pk will ask user
    to specify *filenames*, but it might ask for *archive type*!
+~  switch to mktemp utility for creating temporary dirs
 
