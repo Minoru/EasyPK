@@ -9,4 +9,6 @@ EasyPK TODO
 ~  what if program was called in way like "pk filename"? Yeah, pk will ask user
    to specify *filenames*, but it might ask for *archive type*!
 ~  switch to mktemp utility for creating temporary dirs
+~  add -md5 option - it should calculate MD5 sum of created archive and store
+   it in ${archivename}.md5 file
 
