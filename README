@@ -21,7 +21,7 @@ See table in "Which programs EasyPK requires?" section.
 
 You must have archivers installed for handling corresponging archives - bzip2
 for bz2, gzip for gz, tar for tar and so on. Full list of all the programs
-which could be required: tar, gzip, bzip2, rar, 7z.
+which could be required: tar, gzip, bzip2, rar, p7zip, p7zip-rar.
 
 Also, you will need pv utility for displaying nice progress bars with speed and
 estimated time. Actually, pv isn't really needed, scripts will work even without

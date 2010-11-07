@@ -230,7 +230,7 @@ do
         *.rar)
             prepareTmp
 
-            rar x -- "../$1"
+            7z x -- "../$1"
 
             if [ "$?" == "0" ]
             then
