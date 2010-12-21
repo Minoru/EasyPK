@@ -14,4 +14,5 @@ EasyPK TODO list
 ~  process options till -- or end of optlist, not till first non-option
 ~  unpk: add -f option to specify filetype (and ommit filetype recognition from filename)
 ~  recognize archive types using `file` utility
+~  add an option to specify compress rate
 
