@@ -1,8 +1,7 @@
 EasyPK README
 
-
-
- What EasyPK is?
+What EasyPK is?
+---------------
 
 EasyPK is distribution of two BASH scripts named pk and unpk which handles
 archive creating and unpacking operations. Run every utility with -h switch and
@@ -10,14 +9,16 @@ read usage notes - it will be enough for using scripts. You can install man
 pages (read INSTALL first) and read them otherwise.
 
 
+Which archive types EasyPK supports?
+------------------------------------
 
- Which archive types EasyPK supports?
+EasyPK can pack and unpack tar, gzip, bzip2, rar and 7z archives. Note, though,
+that your particular installation may be missing some capabilities because of
+missing archivers. Install them all to get most of EasyPK.
 
-See table in "Which programs EasyPK requires?" section.
 
-
-
- Which progams EasyPK requires?
+Which progams EasyPK requires?
+------------------------------
 
 You must have archivers installed for handling corresponging archives - bzip2
 for bz2, gzip for gz, tar for tar and so on. Full list of all the programs
@@ -28,29 +29,29 @@ estimated time. Actually, pv isn't really needed, scripts will work even without
 it, but you'll lose progress bars.
 
 
-
- How to install it in my system?
+How to install it in my system?
+-------------------------------
 
 Read INSTALL.
 
 
-
- How can I get latest version of EasyPK?
+How can I get latest version of EasyPK?
+---------------------------------------
 
 Project hosted at github.com
 
 You can use any of two methods to get latest version:
 
-+  install git and check out the code from repository:
++  check out the code from repository:
    $ git clone "git://github.com/Minoru/EasyPK.git"
 
-+  visit http://github.com/Minoru/EasyPK/archives/master and download tar.gz or
-   zip file with latest revision
++  visit http://github.com/Minoru/EasyPK/archives/master and download tarball or
+   zip archive with latest revision
 
 
-
- I found a bug! How can I report it?
- I have some ideas! How to I let you know?
+I found a bug! How can I report it?
+I have some ideas! How to I let you know?
+-----------------------------------------
 
 There are bug tracking system at github: http://github.com/Minoru/EasyPK/issues
 Feel free to create new issues and leave the most detailed reports.

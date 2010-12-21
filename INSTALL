@@ -1,5 +1,8 @@
-Note: As far as EasyPK is just a BASH scripts, you don't need to compile them -
-just make sure you have BASH installed.
+How to install EasyPK
+---------------------
+
+You don't need to compile EasyPK because it's just a bunch of BASH scripts.
+Having BASH installed is sufficient for using EasyPK.
 
 To install EasyPK to your system, run as root:
 

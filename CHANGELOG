@@ -1,4 +1,5 @@
 EasyPK CHANGELOG
+----------------
 
 dev:
 +  Signal processing added (now scripts normally terminate with Ctrl+C)

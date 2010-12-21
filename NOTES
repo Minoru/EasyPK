@@ -1,5 +1,6 @@
 EasyPK NOTES
+------------
 
-+  Progress bar can show weird things like impossible high speed or "106%" of
++  Progress bar may show weird things like impossible high speed or "106%" of
    transferred data. It's okay, don't worry ;)
 
