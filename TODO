@@ -11,4 +11,6 @@ EasyPK TODO
 ~  switch to mktemp utility for creating temporary dirs
 ~  add -md5 option - it should calculate MD5 sum of created archive and store
    it in ${archivename}.md5 file
+~  process options till -- or end of optlist, not till first non-option
+~  unpk: add -f option to specify filetype (and ommit filetype recognition from filename)
 
