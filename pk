@@ -172,7 +172,7 @@ case $format in
             eval tar --create --verbose --file -- "$out" $files
         fi
 
-        $deleteAfter && eval rm --recursive $files
+        $deleteAfter && eval rm --force --recursive $files
         ;;
 
     
@@ -192,7 +192,7 @@ case $format in
             eval tar --create --verbose --file - -- $files | bzip2 --stdout $bzip2args - >"$out"
         fi
 
-        $deleteAfter && eval rm --recursive $files
+        $deleteAfter && eval rm --force --recursive $files
         ;;
 
 
@@ -212,7 +212,7 @@ case $format in
             eval tar --create --verbose --file - -- $files | gzip --stdout $gzipgargs - >"$out"
         fi
 
-        $deleteAfter && eval rm --recursive $files
+        $deleteAfter && eval rm --force --recursive $files
         ;;
     
     
@@ -231,7 +231,7 @@ case $format in
                     echo "“$1” is not a regular file, bzip2 can not process it!"
                 fi
 
-                $deleteAfter && rm "$1"
+                $deleteAfter && rm --force "$1"
 
                 shift
             done
@@ -247,7 +247,7 @@ case $format in
                     echo "“$1” is not a regular file, bzip2 can not process it!"
                 fi
                 
-                $deleteAfter && rm "$1"
+                $deleteAfter && rm --force "$1"
 
                 shift
             done
@@ -270,7 +270,7 @@ case $format in
                     echo "”$1” is not a regular file, gzip can not process it!"
                 fi
 
-                $deleteAfter && rm "$1"
+                $deleteAfter && rm --force "$1"
 
                 shift
             done
@@ -286,7 +286,7 @@ case $format in
                     echo "“$1” is not a regular file, gzip can not precess it!"
                 fi
 
-                $deleteAfter && rm "$1"
+                $deleteAfter && rm --force "$1"
 
                 shift
             done
@@ -303,7 +303,7 @@ case $format in
         
         eval 7z a -tzip $zipargs -- \"$out\" $files 
 
-        $deleteAfter && eval rm --recursive $files
+        $deleteAfter && eval rm --force --recursive $files
         ;;
 
 
@@ -316,7 +316,7 @@ case $format in
         
         eval 7z a $lzmaargs -- \"$out\" $files
 
-        $deleteAfter && eval rm --recursive $files
+        $deleteAfter && eval rm --force --recursive $files
         ;;
 
     rar)
@@ -328,7 +328,7 @@ case $format in
 
         eval rar a -r $rarargs -- \"$out\" $files
 
-        $deleteAfter && eval rm --recursive $files
+        $deleteAfter && eval rm --force --recursive $files
         ;;
 
 
