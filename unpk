@@ -4,7 +4,7 @@
 #  UNPacK script
 #
 #  Copyright 2009 Zend
-#  Copyright 2009, 2010 Alexander Batischev
+#  Copyright 2009, 2010, 2011 Alexander Batischev
 #
 #  This file is part of EasyPK.
 #
@@ -45,16 +45,31 @@ clearTmp() {
 
     name="`basename "$2" .$1`"
 
-    if [ "`/bin/ls -l | wc --lines`" -eq "2" ]
+    # invariant: we're in $tmp now
+
+    if [ "`/bin/ls -1 | wc --lines`" -eq "1" ]
     then
-        # if there are only one in the directory...
-        rm --recursive --force ../"`/bin/ls`"
+        # if there is only one file in the directory...
+        if [ -e "../`/bin/ls`" ]
+        then
+            echo "\"`/bin/ls -1`\" already exists, quitting!"
+            echo "By the way, you can pick your unpacked files in a directory called $tmp"
+            exit 4
+        fi
         mv * ..
         cd ..
         rmdir "$tmp"
     else
+        for file in `/bin/ls -1`
+        do
+            if [ -e "../$file" ]
+            then
+                echo "\"$file\" already exists, quitting!"
+                echo "By the way, you can pick your unpacked files in a directory called $tmp"
+                exit 4
+            fi
+        done
         cd ..
-        rm --recursive --force "$name"
         mv "$tmp" "$name"
     fi
 }

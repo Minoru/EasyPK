@@ -1,4 +1,4 @@
-.TH unpk 1 "November 07, 2010" "EasyPK 2.4"
+.TH unpk 1 "July 12, 2011" "EasyPK 2.4"
 .SH NAME
 unpk \- UNPacK script
 .SH SYNOPSIS
@@ -43,6 +43,9 @@ Input files not specified.
 .TP
 .B 3
 Terminating signal (KILL, TERM, HUP, INT) received.
+.TP
+.B 4
+File already exists.
 .SH BUGS
 There are some certainly. If you found one, please mail the author (see
 .B
@@ -51,7 +54,7 @@ section for details).
 .SH EXAMPLES
 .TP
 .B unpk -d backup.tar
-Extract files from backup and delete it.
+Extract files from backup and delete the archive.
 .SH AUTHOR
 The author of this software is Alexander Batischev.
 You can mail him about EasyPK at <\fIeual.jp@gmail.com\fR>
