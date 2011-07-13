@@ -16,3 +16,4 @@ EasyPK TODO list
 ~  add an option to specify compress rate
 ~  unpack to /tmp; provide an option for unpacking to the current (or even
    better - to specified) directory
+~  check for filename colissions *before* unpacking
