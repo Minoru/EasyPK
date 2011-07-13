@@ -7,6 +7,8 @@ dev:
 +  Do not replace existing files with unpacked ones, raise an error and quit
    with exit code 4 instead (keeping unpacked files in temporary directory so
    user can take them wherever he/she wants)
++  Make temporary directories hidden and prefixed with "EasyPK" so user can
+   guess what's in it
 
 2.4:
 +  Switched from zip to 7zip for handling zip archives (reason is stupid zip's

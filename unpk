@@ -36,7 +36,7 @@ trap "exit 3" KILL TERM HUP INT
 prepareTmp() {
     # prepares temp directory
 
-    tmp="`echo $$ | base64 | sed 's/[^[:alpha:]]//g'`"
+    tmp=".EasyPK-`echo $$ | base64 | sed 's/[^[:alpha:]]//g'`"
     mkdir "$tmp" && cd "$tmp"
 }
 
@@ -53,6 +53,10 @@ clearTmp() {
         if [ -e "../`/bin/ls`" ]
         then
             echo "\"`/bin/ls -1`\" already exists, quitting!"
+
+            # "unhiding" temporary directory
+            tmp=${tmp##.}
+            mv "../.$tmp" "../$tmp"
             echo "By the way, you can pick your unpacked files in a directory called $tmp"
             exit 4
         fi
@@ -65,6 +69,10 @@ clearTmp() {
             if [ -e "../$file" ]
             then
                 echo "\"$file\" already exists, quitting!"
+
+                # "unhiding" temporary directory
+                tmp=${tmp##.}
+                mv "../.$tmp" "../$tmp"
                 echo "By the way, you can pick your unpacked files in a directory called $tmp"
                 exit 4
             fi
