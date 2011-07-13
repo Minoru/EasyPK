@@ -3,30 +3,30 @@ EasyPK README
 What EasyPK is?
 ---------------
 
-EasyPK is distribution of two BASH scripts named pk and unpk which handles
-archive creating and unpacking operations. Run every utility with -h switch and
-read usage notes - it will be enough for using scripts. You can install man
-pages (read INSTALL first) and read them otherwise.
+EasyPK is a distribution of two BASH scripts (named pk and unpk) that handle
+archive creating, compressing, uncompressing and unpacking. Run every utility
+with -h switch and read usage notes - it will be enough to start using them.
+You can also install man pages (read INSTALL first) and read them, too.
 
 
-Which archive types EasyPK supports?
-------------------------------------
+Which archive types does EasyPK support?
+----------------------------------------
 
-EasyPK can pack and unpack tar, gzip, bzip2, rar and 7z archives. Note, though,
-that your particular installation may be missing some capabilities because of
-missing archivers. Install them all to get most of EasyPK.
+EasyPK can pack and unpack tar, zip, gzip, bzip2, rar and 7z archives. Note,
+though, that your particular installation may be missing some capabilities
+because of missing archivers. Install them all to get most of EasyPK.
 
 
 Which progams EasyPK requires?
 ------------------------------
 
-You must have archivers installed for handling corresponging archives - bzip2
+You must have archivers installed for handling corresponding archives - bzip2
 for bz2, gzip for gz, tar for tar and so on. Full list of all the programs
 which could be required: tar, gzip, bzip2, rar, p7zip, p7zip-rar.
 
-Also, you will need pv utility for displaying nice progress bars with speed and
-estimated time. Actually, pv isn't really needed, scripts will work even without
-it, but you'll lose progress bars.
+You may also need pv utility to display nice progress bars with processing
+speed and estimated time. Actually, pv isn't really needed, scripts will work
+even without it, but you'll lose progress bars.
 
 
 How to install it in my system?
@@ -38,24 +38,24 @@ Read INSTALL.
 How can I get latest version of EasyPK?
 ---------------------------------------
 
-Project hosted at github.com
+Project hosted at github.com: http://github.com/Minoru/EasyPK
 
 You can use any of two methods to get latest version:
 
 +  check out the code from repository:
    $ git clone "git://github.com/Minoru/EasyPK.git"
 
-+  visit http://github.com/Minoru/EasyPK/archives/master and download tarball or
-   zip archive with latest revision
++  visit http://github.com/Minoru/EasyPK/archives/master and download tarball
+   or zip archive with latest revision
 
 
 I found a bug! How can I report it?
-I have some ideas! How to I let you know?
+I have some ideas! How to let you know?
 -----------------------------------------
 
 There are bug tracking system at github: http://github.com/Minoru/EasyPK/issues
 Feel free to create new issues and leave the most detailed reports.
 
 The other option is to mail an author, Alexander Batischev. Send your mails to
-<eual.jp@gmail.com> with "EasyPK" mentioned somewhere in the subject.
+<eual.jp@gmail.com> with "EasyPK" mentioned somewhere in the subject field.
 
