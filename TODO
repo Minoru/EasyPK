@@ -2,12 +2,11 @@ EasyPK TODO list
 ----------------
 
 ~  what if "." or ".." specified as input or output file?
-~  messages revision: add some nice things (bold, underlying, “” etcetera)
 ~  check for archivers and show error messages if not found
 ~  show percentage of saved space (like bzip2 and gzip do after finishing
    packing)
 ~  what if program was called in way like "pk filename"? Yeah, pk will ask user
-   to specify *filenames*, but it might ask for *archive type*!
+   to specify *filenames*, when it should be asking for *archive type*!
 ~  switch to mktemp utility for creating temporary dirs
 ~  add -md5 option - it should calculate MD5 sum of created archive and store
    it in ${archivename}.md5 file
@@ -15,4 +14,5 @@ EasyPK TODO list
 ~  unpk: add -f option to specify filetype (and ommit filetype recognition from filename)
 ~  recognize archive types using `file` utility
 ~  add an option to specify compress rate
-
+~  unpack to /tmp; provide an option for unpacking to the current (or even
+   better - to specified) directory
