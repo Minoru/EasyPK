@@ -234,7 +234,7 @@ case $format in
                     echo "${out}:"
                     pv -- "$1" | bzip2 --stdout $bzip2args - >"$1.bz2"
                 else
-                    echo "“$1” is not a regular file, bzip2 can not process it!"
+                    echo "\"$1\" is not a regular file, bzip2 can not process it!"
                 fi
 
                 if [ $deleteAfter == 'true' ]
@@ -252,7 +252,7 @@ case $format in
                 then
                     bzip2 --stdout $bzip2args -- "$1" >"$1.bz2"
                 else
-                    echo "“$1” is not a regular file, bzip2 can not process it!"
+                    echo "\"$1\" is not a regular file, bzip2 can not process it!"
                 fi
                 
                 if [ $deleteAfter == 'true' ]
@@ -277,7 +277,7 @@ case $format in
                     echo "${out}:"
                     pv -- "$1" | gzip --stdout $gzipargs - >"$1.gz"
                 else
-                    echo "”$1” is not a regular file, gzip can not process it!"
+                    echo "\"$1\" is not a regular file, gzip can not process it!"
                 fi
 
                 if [ $deleteAfter == 'true' ]
@@ -295,7 +295,7 @@ case $format in
                 then
                     gzip --stdout $gzipargs -- "$1" >"$1.gz"
                 else
-                    echo "“$1” is not a regular file, gzip can not precess it!"
+                    echo "\"$1\" is not a regular file, gzip can not precess it!"
                 fi
 
                 if [ $deleteAfter == 'true' ]
