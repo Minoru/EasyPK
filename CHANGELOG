@@ -9,6 +9,7 @@ dev:
    user can take them wherever he/she wants)
 +  Make temporary directories hidden and prefixed with "EasyPK" so user can
    guess what's in it
++  Fixed exit codes in pk (if -d wasn't specified, pk returned 1)
 
 2.4:
 +  Switched from zip to 7zip for handling zip archives (reason is stupid zip's
