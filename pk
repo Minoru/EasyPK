@@ -23,7 +23,7 @@
 #
 
 help() {
-    echo "USAGE: `basename $0` -h | tar|tbz|tbz2|tgz|bz2|gz|7z|zip|rar [-d] [-o outfile] file1 [file2 [file3 ...]]"
+    echo "USAGE: `basename $0` -h | tar|tbz|tbz2|tgz|bz2|gz|7z|zip|rar|xz|tar.xz [-d] [-o outfile] file1 [file2 [file3 ...]]"
     echo ""
     echo "-o outfile  --  set name of archive to \"outfile\""
     echo "-h          --  shows this help note"
@@ -221,6 +221,28 @@ case $format in
         then eval rm --force --recursive $files
         fi
         ;;
+
+
+    tar.xz)
+        getFilenames "$@"
+
+        setOutFilenames "tar.xz"
+
+        checkForOutFile "$out" && exit
+
+        if [ $pv_available == true ]
+        then
+            size=`eval du --bytes --total -- $files | tail -1 | grep --only-matching '^[0-9]*'`
+            echo "${out}:"
+            eval tar --create --file - -- $files | pv --size $size | xz  $xzargs >"$out"
+        else
+            eval tar --create --verbose --file - -- $files | xz $xzargs >"$out"
+        fi
+
+        if [ $deleteAfter == 'true' ]
+        then eval rm --force --recursive $files
+        fi
+        ;;
     
     
     bz2)
@@ -275,6 +297,33 @@ case $format in
         ;;
     
     
+    xz)
+        while [ -n "$1" ]
+        do
+            checkForOutFile "$1.xz" && shift && continue
+
+            if [ -f "$1" ]
+            then
+                if [ $pv_available == true ]
+                then
+                    echo "${out}:"
+                    pv -- "$1" | xz --stdout $xzargs >"$1.xz"
+                else
+                    xz $xzargs "$1"
+                fi
+            else
+                echo "\"$1\" is not a regular file, xz can not process it!"
+            fi
+
+            if [ $deleteAfter == 'true' ]
+            then rm --force "$1"
+            fi
+
+            shift
+        done
+        ;;
+
+
     zip)
         getFilenames "$@"
 

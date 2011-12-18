@@ -1,7 +1,8 @@
 EasyPK CHANGELOG
 ----------------
 
-dev:
+2.5:
++  Add support for xz archives
 +  Strip trailing slash from filenames when forming archive's name
 +  Signal processing added (now scripts normally terminate with Ctrl+C)
 +  Force delete when -d is specified

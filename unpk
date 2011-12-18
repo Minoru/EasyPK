@@ -24,7 +24,7 @@
 
 help() {
     echo "USAGE: `basename $0` [ -h ] | [-d] file1 [file2 [file3 ...]]"
-    echo "Supported archive formats is: tar, tar.bz2, tar.gz, bz2, gz, 7z, zip, rar."
+    echo "Supported archive formats are: tar, tar.bz2, tar.gz, bz2, gz, 7z, zip, rar, xz, tar.xz."
     echo "-h  --  show this note"
     echo "-d  --  delete archive after unpacking"
 }
@@ -112,9 +112,9 @@ fi
 # checking for pv
 if command -v pv &>/dev/null
 then
-    pv_avaliable=true
+    pv_available=true
 else
-    pv_avaliable=false
+    pv_available=false
     echo "Warning: pv not found. Please install it for displaying nice progress bars, speed and estimated time while packing."
 fi
 
@@ -124,7 +124,7 @@ do
         *.tar)
             prepareTmp
 
-            if [ $pv_avaliable == true ]
+            if [ $pv_available == true ]
             then
                 echo "$1:"
                 pv -- "../$1" | tar --extract --file -
@@ -144,7 +144,7 @@ do
         *.tar.bz2|*.tbz|*.tbz2)
             prepareTmp
 
-            if [ $pv_avaliable == true ]
+            if [ $pv_available == true ]
             then
                 echo "$1:"
                 pv -- "../$1" | bunzip2 --stdout | tar --extract --file -
@@ -168,7 +168,7 @@ do
         *.tar.gz|*.tgz)
             prepareTmp
 
-            if [ $pv_avaliable == true ]
+            if [ $pv_available == true ]
             then
                 echo "$1:"
                 pv -- "../$1" | gunzip --stdout | tar --extract --file -
@@ -188,9 +188,29 @@ do
             ;;
 
 
+        *.tar.xz)
+            prepareTmp
+
+            if [ $pv_available == true ]
+            then
+                echo "$1:"
+                pv -- "../$1" | unxz | tar --extract --file -
+            else
+                unxz "$1" | tar --extract --file -
+            fi
+
+            if [ "$?" == "0" ]
+            then
+                unpkSuccess=true
+            fi
+
+            clearTmp "tar.xz" "$1"
+            ;;
+
+
         *.bz2)
             out="${1%%.bz2}"
-            if [ $pv_avaliable == true ]
+            if [ $pv_available == true ]
             then
                 echo "$1:"
                 pv -- "$1" | bunzip2 --stdout - >"$out"
@@ -207,12 +227,29 @@ do
 
         *.gz)
             out="${1%%.gz}"
-            if [ $pv_avaliable == true ]
+            if [ $pv_available == true ]
             then
                 echo "$1:"
                 pv -- "$1" | gunzip --stdout - >"$out"
             else
                 gunzip --stdout --verbose "$1" >"$out"
+            fi
+
+            if [ "$?" == "0" ]
+            then
+                unpkSuccess=true
+            fi
+            ;;
+
+
+        *.xz)
+            out="${1%%.xz}"
+            if [ $pv_available == true ]
+            then
+                echo "$1:"
+                pv -- "$1" | unxz >"$out"
+            else
+                unxz --verbose "$1" >"$out"
             fi
 
             if [ "$?" == "0" ]
