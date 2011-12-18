@@ -49,7 +49,7 @@ getFilenames () {
         
             if [ -z "$out2" ]
             then
-                out2="$1"
+                out2="`basename \"$1\"`"
             fi
         
             shift
