@@ -107,6 +107,14 @@ else
     echo "Warning: pv not found. Please install it for displaying nice progress bars, speed and estimated time while packing."
 fi
 
+# checking for pbzip2
+if command -v pbzip2 &>/dev/null
+then
+    bzip2="`command -v pbzip2`"
+else
+    bzip2="`command -v bzip2`"
+fi
+
 # Some arguments which you want to pass to archivators
 bzip2args="--best"
 gzipargs="--best"
@@ -190,9 +198,9 @@ case $format in
         then
             size=`eval du --bytes --total -- $files | tail -1 | grep --only-matching '^[0-9]*'`
             echo "${out}:"
-            eval tar --create --file - -- $files | pv --size $size | bzip2 --stdout $bzip2args - >"$out"
+            eval tar --create --file - -- $files | pv --size $size | $bzip2 --stdout $bzip2args - >"$out"
         else
-            eval tar --create --verbose --file - -- $files | bzip2 --stdout $bzip2args - >"$out"
+            eval tar --create --verbose --file - -- $files | $bzip2 --stdout $bzip2args - >"$out"
         fi
 
         if [ $deleteAfter == 'true' ]
@@ -254,12 +262,12 @@ case $format in
             then
                 if [ $pv_available == true ]; then
                     echo "${out}:"
-                    pv -- "$1" | bzip2 --stdout $bzip2args - >"$1.bz2"
+                    pv -- "$1" | $bzip2 --stdout $bzip2args - >"$1.bz2"
                 else
-                    bzip2 --stdout $bzip2args -- "$1" >"$1.bz2"
+                    $bzip2 --stdout $bzip2args -- "$1" >"$1.bz2"
                 fi
             else
-                echo "\"$1\" is not a regular file, bzip2 can not process it!"
+                echo "\"$1\" is not a regular file, $bzip2 can not process it!"
             fi
 
             if [ $deleteAfter == 'true' ]

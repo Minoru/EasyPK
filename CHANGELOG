@@ -1,6 +1,9 @@
 EasyPK CHANGELOG
 ----------------
 
+dev:
++  Use pbzip2 if installed
+
 2.5:
 +  Add support for xz archives
 +  Strip trailing slash from filenames when forming archive's name

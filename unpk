@@ -118,6 +118,14 @@ else
     echo "Warning: pv not found. Please install it for displaying nice progress bars, speed and estimated time while packing."
 fi
 
+# checking for pbzip2
+if command -v pbzip2 &>/dev/null
+then
+    bunzip2="`command -v pbzip2` --decompress"
+else
+    bunzip2="`command -v bunzip2`"
+fi
+
 while [ -n "$1" ]
 do
     case $1 in
@@ -147,9 +155,9 @@ do
             if [ $pv_available == true ]
             then
                 echo "$1:"
-                pv -- "../$1" | bunzip2 --stdout | tar --extract --file -
+                pv -- "../$1" | $bunzip2 --stdout | tar --extract --file -
             else
-                tar --extract --bzip2 --verbose --file "../$1"
+                $bunzip "../$1" | tar --extract --verbose --file -
             fi
 
             if [ "$?" == "0" ]
@@ -196,7 +204,7 @@ do
                 echo "$1:"
                 pv -- "../$1" | unxz | tar --extract --file -
             else
-                unxz "$1" | tar --extract --file -
+                unxz "../$1" | tar --extract --file -
             fi
 
             if [ "$?" == "0" ]
@@ -213,9 +221,9 @@ do
             if [ $pv_available == true ]
             then
                 echo "$1:"
-                pv -- "$1" | bunzip2 --stdout - >"$out"
+                pv -- "$1" | $bunzip2 --stdout - >"$out"
             else
-                bunzip2 --stdout --verbose "$1" >"$out"
+                $bunzip2 --stdout --verbose "$1" >"$out"
             fi
 
             if [ "$?" == "0" ]
