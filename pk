@@ -59,7 +59,7 @@ getFilenames () {
 }
 
 setOutFilenames() {
-    # sets output fielnames
+    # sets output filenames
     if [ -z "$out" ]
     then
         if [ "$count" -eq "1" ]
@@ -76,7 +76,7 @@ checkForOutFile() {
 
     if [ -e "$out" ]
     then
-        echo -n "Warning: output file ($out) already exist. Want it to be owerwritten? (Y/N) "
+        echo -n "Warning: output file ($out) already exist. Want it to be overwritten? (Y/N) "
         read -n 1 answer
         echo
         if [ "$answer" != "Y" -a "$answer" != "y" ]
@@ -101,9 +101,9 @@ deleteAfter=false
 # checking for pv
 if command -v pv &>/dev/null
 then
-    pv_avaliable=true
+    pv_available=true
 else
-    pv_avaliable=false
+    pv_available=false
     echo "Warning: pv not found. Please install it for displaying nice progress bars, speed and estimated time while packing."
 fi
 
@@ -113,6 +113,7 @@ gzipargs="--best"
 zipargs="-mx9"
 lzmaargs="-m0=lzma"
 rarargs="-m5"
+xzargs=""
 
 
 # parse parameters given to script
@@ -163,7 +164,7 @@ case $format in
 
         checkForOutFile "$out" && exit
 
-        if [ $pv_avaliable == true ]
+        if [ $pv_available == true ]
         then
             size=`eval du --bytes --total -- $files | tail -1 | grep --only-matching '^[0-9]*'`
             echo "${out}:"
@@ -185,7 +186,7 @@ case $format in
 
         checkForOutFile "$out" && exit
 
-        if [ $pv_avaliable == true ]
+        if [ $pv_available == true ]
         then
             size=`eval du --bytes --total -- $files | tail -1 | grep --only-matching '^[0-9]*'`
             echo "${out}:"
@@ -207,7 +208,7 @@ case $format in
 
         checkForOutFile "$out" && exit
 
-        if [ $pv_avaliable == true ]
+        if [ $pv_available == true ]
         then
             size=`eval du --bytes --total -- $files | tail -1 | grep --only-matching '^[0-9]*'`
             echo "${out}:"
@@ -223,88 +224,54 @@ case $format in
     
     
     bz2)
-        if [ $pv_avaliable == true ]
-        then
-            while [ -n "$1" ]
-            do
-                checkForOutFile "$1.bz2" && shift && continue
+        while [ -n "$1" ]
+        do
+            checkForOutFile "$1.bz2" && shift && continue
 
-                if [ -f "$1" ]
-                then
+            if [ -f "$1" ]
+            then
+                if [ $pv_available == true ]; then
                     echo "${out}:"
                     pv -- "$1" | bzip2 --stdout $bzip2args - >"$1.bz2"
                 else
-                    echo "\"$1\" is not a regular file, bzip2 can not process it!"
-                fi
-
-                if [ $deleteAfter == 'true' ]
-                then rm --force "$1"
-                fi
-
-                shift
-            done
-        else
-            while [ -n "$1" ]
-            do
-                checkForOutFile "$1.bz2" && shift && continue
-
-                if [ -f "$1" ]
-                then
                     bzip2 --stdout $bzip2args -- "$1" >"$1.bz2"
-                else
-                    echo "\"$1\" is not a regular file, bzip2 can not process it!"
                 fi
-                
-                if [ $deleteAfter == 'true' ]
-                then rm --force "$1"
-                fi
+            else
+                echo "\"$1\" is not a regular file, bzip2 can not process it!"
+            fi
 
-                shift
-            done
-        fi
+            if [ $deleteAfter == 'true' ]
+            then rm --force "$1"
+            fi
+
+            shift
+        done
         ;;
     
     
     gz)
-        if [ $pv_avaliable == true ]
-        then
-            while [ -n "$1" ]
-            do
-                checkForOutFile "$1.gz" && shift && continue
+        while [ -n "$1" ]
+        do
+            checkForOutFile "$1.gz" && shift && continue
 
-                if [ -f "$1" ]
-                then
+            if [ -f "$1" ]
+            then
+                if [ $pv_available == true ]; then
                     echo "${out}:"
                     pv -- "$1" | gzip --stdout $gzipargs - >"$1.gz"
                 else
-                    echo "\"$1\" is not a regular file, gzip can not process it!"
-                fi
-
-                if [ $deleteAfter == 'true' ]
-                then rm --force "$1"
-                fi
-
-                shift
-            done
-        else
-            while [ -n "$1" ]
-            do
-                checkForOutFile "$1.gz" && shift && continue
-
-                if [ -f "$1" ]
-                then
                     gzip --stdout $gzipargs -- "$1" >"$1.gz"
-                else
-                    echo "\"$1\" is not a regular file, gzip can not precess it!"
                 fi
+            else
+                echo "\"$1\" is not a regular file, gzip can not process it!"
+            fi
 
-                if [ $deleteAfter == 'true' ]
-                then rm --force "$1"
-                fi
+            if [ $deleteAfter == 'true' ]
+            then rm --force "$1"
+            fi
 
-                shift
-            done
-        fi
+            shift
+        done
         ;;
     
     
