@@ -2,6 +2,7 @@ EasyPK CHANGELOG
 ----------------
 
 dev:
++  Strip trailing slash from filenames when forming archive's name
 +  Signal processing added (now scripts normally terminate with Ctrl+C)
 +  Force delete when -d is specified
 +  Do not replace existing files with unpacked ones, raise an error and quit
