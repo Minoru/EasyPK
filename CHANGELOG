@@ -2,7 +2,8 @@ EasyPK CHANGELOG
 ----------------
 
 dev:
-+  Use pbzip2 if installed
++  Use pigz (parallel implementation of GZip) if installed
++  Use pbzip2 (parallel bzip2) if installed
 
 2.5:
 +  Add support for xz archives

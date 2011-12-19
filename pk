@@ -115,6 +115,14 @@ else
     bzip2="`command -v bzip2`"
 fi
 
+# checking for pigz
+if command -v pigz &>/dev/null
+then
+    gzip="`command -v pigz`"
+else
+    gzip="`command -v gzip`"
+fi
+
 # Some arguments which you want to pass to archivators
 bzip2args="--best"
 gzipargs="--best"
@@ -220,9 +228,9 @@ case $format in
         then
             size=`eval du --bytes --total -- $files | tail -1 | grep --only-matching '^[0-9]*'`
             echo "${out}:"
-            eval tar --create --file - -- $files | pv --size $size | gzip --stdout $gzipargs - >"$out"
+            eval tar --create --file - -- $files | pv --size $size | $gzip --stdout $gzipargs - >"$out"
         else
-            eval tar --create --verbose --file - -- $files | gzip --stdout $gzipgargs - >"$out"
+            eval tar --create --verbose --file - -- $files | $gzip --stdout $gzipgargs - >"$out"
         fi
 
         if [ $deleteAfter == 'true' ]
@@ -242,7 +250,7 @@ case $format in
         then
             size=`eval du --bytes --total -- $files | tail -1 | grep --only-matching '^[0-9]*'`
             echo "${out}:"
-            eval tar --create --file - -- $files | pv --size $size | xz  $xzargs >"$out"
+            eval tar --create --file - -- $files | pv --size $size | xz $xzargs >"$out"
         else
             eval tar --create --verbose --file - -- $files | xz $xzargs >"$out"
         fi
@@ -288,12 +296,12 @@ case $format in
             then
                 if [ $pv_available == true ]; then
                     echo "${out}:"
-                    pv -- "$1" | gzip --stdout $gzipargs - >"$1.gz"
+                    pv -- "$1" | $gzip --stdout $gzipargs - >"$1.gz"
                 else
-                    gzip --stdout $gzipargs -- "$1" >"$1.gz"
+                    $gzip --stdout $gzipargs -- "$1" >"$1.gz"
                 fi
             else
-                echo "\"$1\" is not a regular file, gzip can not process it!"
+                echo "\"$1\" is not a regular file, $gzip can not process it!"
             fi
 
             if [ $deleteAfter == 'true' ]

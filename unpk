@@ -126,6 +126,14 @@ else
     bunzip2="`command -v bunzip2`"
 fi
 
+# checking for pigz
+if command -v pigz &>/dev/null
+then
+    gunzip="`command -v pigz` --decompress"
+else
+    gunzip="`command -v gunzip`"
+fi
+
 while [ -n "$1" ]
 do
     case $1 in
@@ -179,9 +187,9 @@ do
             if [ $pv_available == true ]
             then
                 echo "$1:"
-                pv -- "../$1" | gunzip --stdout | tar --extract --file -
+                pv -- "../$1" | $gunzip --stdout | tar --extract --file -
             else
-                tar --extract --gzip --verbose --file "../$1"
+                $gunzip "../$1" | tar --extract --verbose --file -
             fi
  
             if [ "$?" == "0" ]
@@ -238,9 +246,9 @@ do
             if [ $pv_available == true ]
             then
                 echo "$1:"
-                pv -- "$1" | gunzip --stdout - >"$out"
+                pv -- "$1" | $gunzip --stdout - >"$out"
             else
-                gunzip --stdout --verbose "$1" >"$out"
+                $gunzip --stdout --verbose "$1" >"$out"
             fi
 
             if [ "$?" == "0" ]
