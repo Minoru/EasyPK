@@ -4,7 +4,7 @@
 #  UNPacK script
 #
 #  Copyright 2009 Zend
-#  Copyright 2009, 2010, 2011 Alexander Batischev
+#  Copyright 2009, 2010, 2011, 2012 Alexander Batischev
 #
 #  This file is part of EasyPK.
 #
@@ -23,7 +23,7 @@
 #
 
 help() {
-    echo "USAGE: `basename $0` [ -h ] | [-d] file1 [file2 [file3 ...]]"
+    echo "USAGE: `basename $0` [-d] file1 [file2 [file3 ...]]"
     echo "Supported archive formats are: tar, tar.bz2, tar.gz, bz2, gz, 7z, zip, rar, xz, tar.xz."
     echo "-h  --  show this note"
     echo "-d  --  delete archive after unpacking"

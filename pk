@@ -4,7 +4,7 @@
 #  PacK script
 #
 #  Copyright 2009 Zend
-#  Copyright 2009, 2010, 2011 Alexander Batischev
+#  Copyright 2009, 2010, 2011, 2012 Alexander Batischev
 #
 #  This file is part of EasyPK.
 #
@@ -23,7 +23,7 @@
 #
 
 help() {
-    echo "USAGE: `basename $0` -h | tar|tbz|tbz2|tgz|bz2|gz|7z|zip|rar|xz|tar.xz [-d] [-o outfile] file1 [file2 [file3 ...]]"
+    echo "USAGE: `basename $0` tar|tbz|tbz2|tgz|bz2|gz|7z|zip|rar|xz|tar.xz [-d] [-o outfile] file1 [file2 [file3 ...]]"
     echo ""
     echo "-o outfile  --  set name of archive to \"outfile\""
     echo "-h          --  shows this help note"
