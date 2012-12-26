@@ -32,24 +32,24 @@ check-dependencies:
 
 install: check-dependencies
 	@echo installing executable files to ${BINPREFIX}
-	@mkdir --parents ${BINPREFIX}
-	@cp --force pk ${BINPREFIX}/
+	@mkdir -p ${BINPREFIX}
+	@cp -f pk ${BINPREFIX}/
 	@chmod 755 ${BINPREFIX}/pk
-	@cp --force unpk ${BINPREFIX}/
+	@cp -f unpk ${BINPREFIX}/
 	@chmod 755 ${BINPREFIX}/unpk
 	@echo installing manual pages to ${MANPREFIX}
 	@mkdir -p ${MANPREFIX}/man1
-	@cp --force pk.1 ${MANPREFIX}/man1/
+	@cp -f pk.1 ${MANPREFIX}/man1/
 	@chmod 644 ${MANPREFIX}/man1/pk.1
-	@cp --force unpk.1 ${MANPREFIX}/man1/
+	@cp -f unpk.1 ${MANPREFIX}/man1/
 	@chmod 644 ${MANPREFIX}/man1/unpk.1
 
 uninstall:
 	@echo removing executable files from ${BINPREFIX}
-	@rm --force ${BINPREFIX}/pk
-	@rm --force ${BINPREFIX}/unpk
+	@rm -f ${BINPREFIX}/pk
+	@rm -f ${BINPREFIX}/unpk
 	@echo removing manual pages from ${MANPREFIX}
-	@rm --force ${MANPREFIX}/man1/pk.1
-	@rm --force ${MANPREFIX}/man1/unpk.1
+	@rm -f ${MANPREFIX}/man1/pk.1
+	@rm -f ${MANPREFIX}/man1/unpk.1
 .PHONY: install uninstall
 # vim:noexpandtab:
