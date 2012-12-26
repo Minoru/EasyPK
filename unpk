@@ -134,6 +134,14 @@ else
     gunzip="`command -v gunzip`"
 fi
 
+# check for pixz
+if command -v pixz &>/dev/null
+then
+    unxz="`command -v pixz` -d"
+else
+    unxz="`command -v xz` -d"
+fi
+
 while [ -n "$1" ]
 do
     case $1 in
@@ -210,9 +218,9 @@ do
             if [ $pv_available == true ]
             then
                 echo "$1:"
-                pv -- "../$1" | unxz | tar --extract --file -
+                pv -- "../$1" | $unxz | tar --extract --file -
             else
-                unxz "../$1" | tar --extract --file -
+                $unxz "../$1" | tar --extract --file -
             fi
 
             if [ "$?" == "0" ]
@@ -263,9 +271,9 @@ do
             if [ $pv_available == true ]
             then
                 echo "$1:"
-                pv -- "$1" | unxz >"$out"
+                pv -- "$1" | $unxz >"$out"
             else
-                unxz --verbose "$1" >"$out"
+                $unxz "$1" >"$out"
             fi
 
             if [ "$?" == "0" ]

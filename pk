@@ -123,6 +123,18 @@ else
     gzip="`command -v gzip`"
 fi
 
+# check for pixz
+if command -v pixz &>/dev/null
+then
+    # pixz adds Pixz File Index (PFI) to tar archives. That speeds up
+    # decompression (because lookup is faster) but is not supported by other
+    # software. By adding '-t' we tell pixz not to assume that input is in tar
+    # format and don't add PFI.
+    xz="`command -v pixz` -t"
+else
+    xz="`command -v xz`"
+fi
+
 # Some arguments which you want to pass to archivators
 bzip2args="--best"
 gzipargs="--best"
@@ -250,9 +262,9 @@ case $format in
         then
             size=`eval du --bytes --total -- $files | tail -1 | grep --only-matching '^[0-9]*'`
             echo "${out}:"
-            eval tar --create --file - -- $files | pv --size $size | xz $xzargs >"$out"
+            eval tar --create --file - -- $files | pv --size $size | $xz $xzargs >"$out"
         else
-            eval tar --create --verbose --file - -- $files | xz $xzargs >"$out"
+            eval tar --create --verbose --file - -- $files | $xz $xzargs >"$out"
         fi
 
         if [ $deleteAfter == 'true' ]
@@ -323,9 +335,9 @@ case $format in
                 if [ $pv_available == true ]
                 then
                     echo "${out}:"
-                    pv -- "$1" | xz --stdout $xzargs >"$1.xz"
+                    pv -- "$1" | $xz $xzargs >"$1.xz"
                 else
-                    xz $xzargs "$1"
+                    $xz $xzargs "$1"
                 fi
             else
                 echo "\"$1\" is not a regular file, xz can not process it!"
