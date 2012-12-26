@@ -22,7 +22,8 @@ Which progams EasyPK requires?
 
 You must have archivers installed for handling corresponding archives - bzip2
 for bz2, gzip for gz, tar for tar and so on. Full list of all the programs
-which could be required: tar, gzip, bzip2, rar, p7zip, p7zip-rar.
+that EasyPK can utilize: tar, gzip, pigz (parallel gzip), bzip2, pbzip2
+(parallel bzip2), rar, p7zip, p7zip-rar, xz and pixz (parallel xz).
 
 You may also need pv utility to display nice progress bars with processing
 speed and estimated time. Actually, pv isn't really needed, scripts will work

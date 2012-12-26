@@ -2,6 +2,8 @@ EasyPK TODO list
 ----------------
 
 !  move bilerplate code to functions
+~  add heuristics to guess xz compression options from input size (see xz(1)
+   for details)
 ~  what if "." or ".." specified as input or output file?
 ~  show percentage of saved space (like bzip2 and gzip do after finishing
    packing)
@@ -11,7 +13,8 @@ EasyPK TODO list
 ~  add -md5 option - it should calculate MD5 sum of created archive and store
    it in ${archivename}.md5 file
 ~  process options till -- or end of optlist, not till first non-option
-~  unpk: add -f option to specify filetype (and ommit filetype recognition from filename)
+~  unpk: add -f option to specify filetype (and ommit filetype recognition from
+   filename)
 ~  recognize archive types using `file` utility
 ~  add an option to specify compress rate
 ~  unpack to /tmp; provide an option for unpacking to the current (or even
