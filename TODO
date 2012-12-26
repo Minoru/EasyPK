@@ -3,7 +3,6 @@ EasyPK TODO list
 
 !  move bilerplate code to functions
 ~  what if "." or ".." specified as input or output file?
-~  check for archivers and show error messages if not found
 ~  show percentage of saved space (like bzip2 and gzip do after finishing
    packing)
 ~  what if program was called in way like "pk filename"? Yeah, pk will ask user

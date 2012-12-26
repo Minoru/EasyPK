@@ -5,6 +5,7 @@ dev:
 +  Use pigz (parallel implementation of GZip) if installed
 +  Use pbzip2 (parallel bzip2) if installed
 +  Use pixz (parallel xz) if installed
+~  On installation, check for archiving and compression utilities
 
 2.5:
 +  Add support for xz archives
