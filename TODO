@@ -1,6 +1,7 @@
 EasyPK TODO list
 ----------------
 
+!  check for BASH
 !  move bilerplate code to functions
 ~  add heuristics to guess xz compression options from input size (see xz(1)
    for details)
